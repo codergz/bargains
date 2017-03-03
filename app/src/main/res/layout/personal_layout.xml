@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/personal_layout"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/common_white"
+        android:layout_marginTop="0dp"
+        >
+        <LinearLayout
+            android:id="@+id/per_top_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/common_title"
+
+            android:orientation="horizontal"
+            >
+
+            <ImageButton
+            android:id="@+id/per_picture"
+            android:layout_width="68sp"
+            android:layout_height="68sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/per_picture"
+            />
+
+            <TextView
+            android:id="@+id/text_view_username"
+            android:layout_width="90sp"
+            android:layout_height="90sp"
+            android:gravity="center"
+            android:text="请点击登录"
+            android:layout_marginLeft="7dp"
+            android:layout_gravity="center"
+            android:textColor="@color/common_white"
+
+            />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/per_money_favorite"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_below="@id/per_top_linearLayout"
+            android:layout_marginTop="2dp"
+            android:background="@color/common_title"
+            >
+            <TextView
+                android:id="@+id/per_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="余额"
+                android:textSize="20sp"
+                android:textColor="@color/common_white"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/per_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收藏"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:textColor="@color/common_white"
+                android:gravity="center"
+                android:layout_gravity="center"
+               />
+        </LinearLayout>
+        <ListView
+            android:id="@+id/per_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2dp"
+            android:layout_below="@id/per_money_favorite"
+            >
+
+        </ListView>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Bargains</string>
+    <string name="fragment_homepage">首页</string>
+    <string name="fragment_nearby">附近</string>
+    <string name="fragment_personal">个人</string>
+    <string name="address">西安</string>
+    <string name="strLogin">登陆</string>
+    <string name="strTViewLogin">请您点击登录</string>
+    <string name="login_account">账号</string>
+    <string name="login_account_hint">请在此输入您的账号</string>
+    <string name="login_password">密码</string>
+    <string name="login_password_hint">请在此输入您的密码</string>
+    <string name="btn_login">登陆</string>
+    <string name="btn_register">注册</string>
+    <string name="search_city">城市</string>
+    <string name="search_city_hint">城市</string>
+    <string name="search_keyword">关键字</string>
+    <string name="search_keyword_hint">关键字</string>
+    <string name="search_button">检索</string>
+    <string name="search_destory">取消</string>
+</resources>
