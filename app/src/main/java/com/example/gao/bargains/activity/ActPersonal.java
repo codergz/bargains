@@ -99,7 +99,7 @@ public class ActPersonal extends Fragment {
                 //未登陆则跳转到登陆界面
                 if(x == 0){
                     MainActivity activity = (MainActivity)getActivity();
-                    Intent intent = new Intent(activity,LoginActivity.class);
+                    Intent intent = new Intent(activity,ActShopDetailPage.class);
                     startActivity(intent);
                 }else{
                     //已登录的正常逻辑

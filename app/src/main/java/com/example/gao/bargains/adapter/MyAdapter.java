@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.gao.bargains.R;
+import com.example.gao.bargains.data.Shop;
 
 import java.util.List;
 import java.util.Map;
@@ -18,10 +19,10 @@ import java.util.Map;
  */
 
 public class MyAdapter extends BaseAdapter {
-    private List<Map<String, Object>> data;
+    private List<Shop> data;
     private LayoutInflater layoutInflater;
     private Context context;
-    public MyAdapter(Context context,List<Map<String, Object>> data){
+    public MyAdapter(Context context,List<Shop> data){
         this.context=context;
         this.data=data;
         this.layoutInflater=LayoutInflater.from(context);
@@ -68,12 +69,12 @@ public class MyAdapter extends BaseAdapter {
         }else{
             myItem = (MyItem)convertView.getTag();
         }
-        myItem.image.setBackgroundResource((Integer)data.get(position).get("image"));
-        myItem.name.setText((String)data.get(position).get("name"));
-        myItem.distance.setText((String)data.get(position).get("distance"));
-        myItem.address.setText((String)data.get(position).get("address"));
-        myItem.price.setText((String)data.get(position).get("price"));
-        myItem.comment.setText((String)data.get(position).get("comment"));
+        myItem.image.setBackgroundResource(R.mipmap.ic_launcher);
+        myItem.name.setText((String)data.get(position).getShop_name());
+        myItem.distance.setText((String)data.get(position).getDistance());
+        myItem.address.setText((String)data.get(position).getAddress());
+        myItem.price.setText((String)data.get(position).getPrice());
+        myItem.comment.setText((String)data.get(position).getCommentNum());
         return convertView;
     }
 }

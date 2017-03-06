@@ -2,6 +2,7 @@ package com.example.gao.bargains.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -28,6 +30,7 @@ import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.example.gao.bargains.R;
 import com.example.gao.bargains.adapter.MyAdapter;
+import com.example.gao.bargains.data.Shop;
 import com.example.gao.bargains.utils.DistanceUtil;
 
 import java.util.ArrayList;
@@ -55,7 +58,7 @@ public class ActHomePage extends Fragment {
     private Location location;
     private LocationManager locationManager;
     private String provider;
-    public List<Map<String, Object>> list;
+    public List<Shop> list;
 
     public int x = 0;
 
@@ -72,13 +75,21 @@ public class ActHomePage extends Fragment {
         btnSearch = (Button) mMainView.findViewById(R.id.btn_search);
         btnDestory = (Button) mMainView.findViewById(R.id.btn_destory);
         listView = (ListView) mMainView.findViewById(R.id.listview);
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Shop shop = list.get(position);
+//                Toast.makeText(getContext(),shop.getAddress(),Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(),ActShopDetailPage.class);
+                startActivity(intent);
+            }
+        });
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String city = search_city.getText().toString();
                 String keyword = search_keyword.getText().toString();
-                list = new ArrayList<Map<String, Object>>();
+                list = new ArrayList<Shop>();
                 //POI检索实例创建
                 mPoiSearch = PoiSearch.newInstance();
 
@@ -101,25 +112,6 @@ public class ActHomePage extends Fragment {
 
                                 }
 
-                                //开启详情检索
-                                //                      mPoiSearch.searchPoiDetail((new PoiDetailSearchOption()).poiUid(uid));
-
-//                                List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-//                                for (int i = 0; i < result.getTotalPoiNum()&&i<10; i++) {
-//
-//                                    Map<String, Object> map = new HashMap<String, Object>();
-//                                    map.put("image", R.mipmap.ic_launcher);
-//                                    map.put("name", name1[i]);
-//                                    map.put("distance", "500m" + i);
-//                                    map.put("address", address1[i]);
-//                                    map.put("price", "78" + i);
-//                                    map.put("comment", "157" + i);
-//
-//                                    list.add(map);
-//                                }
-//                                MyAdapter myAdapter = new MyAdapter(getContext(), list);
-//                                listView.setAdapter(myAdapter);
-
 
 
                             } catch (Exception e) {
@@ -133,18 +125,15 @@ public class ActHomePage extends Fragment {
                             // result.error请参考SearchResult.ERRORNO
                         }else{
 
-
+                                //由于网络请求延迟，当第十个数据保存完毕再显示列表
                                 x++;
-                                Map<String, Object> map = new HashMap<String, Object>();
-                                map.put("image", R.mipmap.ic_launcher);
-                                map.put("name", result.getName());
-                                map.put("distance", Integer.toString(result.getImageNum()));
-                                map.put("address", result.getAddress());
-                                map.put("price", Double.toString(result.getPrice()) );
-                                map.put("comment", Integer.toString(result.getCommentNum()) );
 
 
-                                list.add(map);
+                                list.add(new Shop(result.getUid(),result.getName(),result.getImageNum(),Integer.toString(result.getImageNum()),result.getAddress(),Double.toString(result.getPrice()),Integer.toString(result.getCommentNum()),result.getTelephone()));
+
+
+
+
                             if(x == 10){
                                 MyAdapter myAdapter = new MyAdapter(getContext(), list);
                                 listView.setAdapter(myAdapter);
