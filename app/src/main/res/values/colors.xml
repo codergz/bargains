@@ -28,4 +28,5 @@
     <color name="tab_indicator_text_unselected">#ffffff</color>
     <color name="page_viewer_margin_color">#ffffff</color>
     <color name="common_main">#7fffd4</color>
+    <color name="common_bg_grey">#cccccc</color>
 </resources>

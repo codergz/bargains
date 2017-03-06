@@ -22,6 +22,7 @@
         android:id="@+id/pagerindicator"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
+
         android:background="@color/common_title"
 
         app:footerColor="@color/common_title"

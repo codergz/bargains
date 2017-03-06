@@ -24,6 +24,7 @@ import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
@@ -74,6 +75,8 @@ public class ActNearby extends Fragment {
         mMainView = inflater.inflate(R.layout.nearby_layout, container, false);
         mMapView = (MapView) mMainView.findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
+        //将定位点显示在地图上
+        mBaiduMap.setMyLocationEnabled(true);
         btn_nearby_mylocation = (Button) mMainView.findViewById(R.id.btn_nearby_mylocation);
         btn_nearby_search = (Button) mMainView.findViewById(R.id.btn_nearby_search);
         btn_destory = (Button) mMainView.findViewById(R.id.btn_destory);
@@ -188,6 +191,11 @@ public class ActNearby extends Fragment {
             baiduMap.animateMapStatus(update);
             isFirstLocate = false;
         }
+        MyLocationData.Builder locationBuilder = new MyLocationData.Builder();
+        locationBuilder.latitude(location.getLatitude());
+        locationBuilder.longitude(location.getLongitude());
+        MyLocationData locationData = locationBuilder.build();
+        mBaiduMap.setMyLocationData(locationData);
     }
     private void mNavigateTo(Location location) {
 
@@ -196,7 +204,11 @@ public class ActNearby extends Fragment {
             baiduMap.animateMapStatus(update);
             update = MapStatusUpdateFactory.zoomTo(16f);
             baiduMap.animateMapStatus(update);
-
+        MyLocationData.Builder locationBuilder = new MyLocationData.Builder();
+        locationBuilder.latitude(location.getLatitude());
+        locationBuilder.longitude(location.getLongitude());
+        MyLocationData locationData = locationBuilder.build();
+        mBaiduMap.setMyLocationData(locationData);
 
     }
 
@@ -233,6 +245,7 @@ public class ActNearby extends Fragment {
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         mMapView.onDestroy();
+        mBaiduMap.setMyLocationEnabled(false);
         try{
         if(locationManager != null){
             locationManager.removeUpdates(locationListener);

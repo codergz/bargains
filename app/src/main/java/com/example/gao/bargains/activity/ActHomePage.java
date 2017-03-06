@@ -78,9 +78,24 @@ public class ActHomePage extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Shop shop = list.get(position);
+                Shop shop = list.get(position);
+                String shop_name = shop.getShop_name();
+                String price = shop.getPrice();
+                String address = shop.getAddress();
+                String phoneNum = shop.getPhoneNum();
+                LatLng latLng = shop.getLatLng();
+                Double latitude = latLng.latitude;
+                Double longitude = latLng.longitude;
 //                Toast.makeText(getContext(),shop.getAddress(),Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(),ActShopDetailPage.class);
+
+                intent.putExtra("shop_name",shop_name);
+                intent.putExtra("price",price);
+                intent.putExtra("address",address);
+                intent.putExtra("phoneNum",phoneNum);
+                intent.putExtra("latitude",latitude);
+                intent.putExtra("longitude",longitude);
+
                 startActivity(intent);
             }
         });
@@ -129,7 +144,7 @@ public class ActHomePage extends Fragment {
                                 x++;
 
 
-                                list.add(new Shop(result.getUid(),result.getName(),result.getImageNum(),Integer.toString(result.getImageNum()),result.getAddress(),Double.toString(result.getPrice()),Integer.toString(result.getCommentNum()),result.getTelephone()));
+                                list.add(new Shop(result.getUid(),result.getName(),result.getImageNum(),Integer.toString(result.getImageNum()),result.getAddress(),Double.toString(result.getPrice()),Integer.toString(result.getCommentNum()),result.getTelephone(),result.getLocation()));
 
 
 

@@ -18,4 +18,5 @@
     <string name="search_keyword_hint">关键字</string>
     <string name="search_button">检索</string>
     <string name="search_destory">取消</string>
+    <string name="RMB">¥</string>
 </resources>

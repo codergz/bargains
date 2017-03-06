@@ -11,7 +11,8 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginLeft="15dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/picture_demo"
+        android:scaleType="fitXY"
         />
     <RelativeLayout
         android:layout_width="match_parent"
@@ -49,7 +50,7 @@
             android:id="@+id/yuan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="¥"
+            android:text="@string/RMB"
             android:layout_below="@id/address"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
