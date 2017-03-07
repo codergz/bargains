@@ -98,7 +98,8 @@ public class ActPersonal extends Fragment {
                 int x = LoginStateUtil.getLoginState();
                 //未登陆则跳转到登陆界面
                 if(x == 0){
-
+//                    Intent intent = new Intent(getActivity(),ActCityChoose2.class);
+//                    startActivity(intent);
                 }else{
                     //已登录的正常逻辑
                     Toast.makeText(getContext(),"biubiubiu",Toast.LENGTH_LONG).show();

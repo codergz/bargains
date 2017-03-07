@@ -29,7 +29,7 @@
             />
 
 
-        <EditText
+        <com.example.gao.bargains.ui.EditTextWithDelete
             android:layout_marginLeft="5dp"
             android:id="@+id/et_nearby_type"
             android:layout_marginTop="5dp"

@@ -33,6 +33,7 @@
         <activity android:name=".activity.RegisterActivity"/>
         <activity android:name=".activity.ActShopDetailPage"/>
         <activity android:name=".activity.ActMap"/>
+
     </application>
 
 </manifest>

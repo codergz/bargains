@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.example.gao.bargains"
-        minSdkVersion 14
+        minSdkVersion 22
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -34,4 +34,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/volley.jar')
     compile files('libs/BaiduLBS_Android.jar')
+    compile files('libs/pinyin4android1.0.jar')
 }
