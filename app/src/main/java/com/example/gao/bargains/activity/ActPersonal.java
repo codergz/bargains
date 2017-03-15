@@ -9,12 +9,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gao.bargains.R;
-import com.example.gao.bargains.utils.GetUserName;
+import com.example.gao.bargains.utils.GetUserInfo;
 import com.example.gao.bargains.utils.LoginStateUtil;
 
 
@@ -27,8 +28,10 @@ public class ActPersonal extends Fragment {
     protected Context mContext;
     protected ImageButton per_picture;
     protected  TextView per_username;
-    protected TextView per_money;
+    protected TextView per_order;
     protected TextView per_favorite;
+    protected Button per_log_out;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -50,12 +53,13 @@ public class ActPersonal extends Fragment {
         //用户名（未登陆的时候默认显示请点击登陆）
          per_username = (TextView) mMainView.findViewById(R.id.text_view_username);
         //余额
-         per_money = (TextView) mMainView.findViewById(R.id.per_money);
+         per_order = (TextView) mMainView.findViewById(R.id.per_order);
         //收藏
          per_favorite = (TextView) mMainView.findViewById(R.id.per_favorite);
 
+        per_log_out = (Button) mMainView.findViewById(R.id.per_log_out);
 
-        per_username.setText(GetUserName.getUsername());
+        per_username.setText(GetUserInfo.getUserName());
         //头像点击事件逻辑
         per_picture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,21 +82,21 @@ public class ActPersonal extends Fragment {
             @Override
             public void onClick(View v) {
 
-//                int x = LoginStateUtil.getLoginState();
-//                //未登陆则跳转到登陆界面
-//                if(x == 0){
-//                    MainActivity activity = (MainActivity)getActivity();
-//                    Intent intent = new Intent(activity,LoginActivity.class);
-//                    startActivity(intent);
-//                }else{
-//                    //已登录的正常逻辑
-//                    Toast.makeText(getContext(),"biubiubiu",Toast.LENGTH_LONG).show();
-//                }
+                int x = LoginStateUtil.getLoginState();
+                //未登陆则跳转到登陆界面
+                if(x == 0){
+                    MainActivity activity = (MainActivity)getActivity();
+                    Intent intent = new Intent(activity,LoginActivity.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(getActivity(),ActUserInfo.class);
+                    startActivity(intent);
+                }
             }
         });
 
         //余额点击事件的逻辑
-        per_money.setOnClickListener(new View.OnClickListener() {
+        per_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int x = LoginStateUtil.getLoginState();
@@ -123,7 +127,24 @@ public class ActPersonal extends Fragment {
                 }
             }
         });
-
+        per_log_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int x = LoginStateUtil.getLoginState();
+                //未登陆则跳转到登陆界面
+                if(x == 0){
+                    MainActivity activity = (MainActivity)getActivity();
+                    Intent intent = new Intent(activity,LoginActivity.class);
+                    startActivity(intent);
+                }else{
+                    //已登录的正常逻辑
+                    GetUserInfo.setUserName("请点击登录");
+                    LoginStateUtil.setLoginState(0);
+                    Intent intent = new Intent(getActivity(),MainActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
 
         return mMainView;
     }

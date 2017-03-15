@@ -50,6 +50,6 @@ public class MainActivity extends IndicatorFragmentActivity {
         tabs.add(new TabInfo(FRAGMENT_THREE, getString(R.string.fragment_personal),
                 ActPersonal.class));
 
-        return FRAGMENT_TWO;
+        return FRAGMENT_THREE;
     }
 }

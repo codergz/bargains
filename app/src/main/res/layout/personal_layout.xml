@@ -54,10 +54,10 @@
             android:background="@color/common_title"
             >
             <TextView
-                android:id="@+id/per_money"
+                android:id="@+id/per_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="余额"
+                android:text="订单"
                 android:textSize="20sp"
                 android:textColor="@color/common_white"
                 android:gravity="center"
@@ -77,14 +77,17 @@
                 android:layout_gravity="center"
                />
         </LinearLayout>
-        <ListView
-            android:id="@+id/per_listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="2dp"
-            android:layout_below="@id/per_money_favorite"
-            >
 
-        </ListView>
+        <Button
+            android:id="@+id/per_log_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="退出登录"
+            android:layout_below="@id/per_money_favorite"
+            android:layout_marginTop="300dp"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            />
     </RelativeLayout>
+
 </LinearLayout>

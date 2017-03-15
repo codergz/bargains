@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,10 +15,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.gao.bargains.Config;
 import com.example.gao.bargains.R;
-import com.example.gao.bargains.utils.GetUserName;
+import com.example.gao.bargains.utils.GetUserInfo;
+
 import com.example.gao.bargains.utils.LoginStateUtil;
 
 import org.json.JSONException;
@@ -35,6 +38,10 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by gao on 2017/2/27.
  */
@@ -65,18 +72,16 @@ public class LoginActivity extends Activity {
                     return;
                 }
 
-//                String data = etAccount.getText().toString();
-//                GetUserName.setUsername(data);
-//                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-//                startActivity(intent);
-//                LoginStateUtil.setLoginState(1);
-
-
                 RequestQueue mQueue = Volley.newRequestQueue(LoginActivity.this);
+
+
+
+
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("name", etAccount.getText().toString());
+                    jsonObject.put("account", etAccount.getText().toString());
                     jsonObject.put("password", etPassword.getText().toString());
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -85,16 +90,36 @@ public class LoginActivity extends Activity {
                     public void onResponse(JSONObject jsonObject) {
                         try {
 
-                            name = jsonObject.getString("success");
-                            if (name.equals("登录成功")) {
+                            name = jsonObject.getString("state");
+                            //success代表账户密码都正确
+                            if (name.equals("success")) {
+                                GetUserInfo.setUserId(jsonObject.getString("id"));
+                                GetUserInfo.setUserAccount(jsonObject.getString("user_account"));
+                                GetUserInfo.setUserPassword(jsonObject.getString("user_password"));
+                                GetUserInfo.setUserName(jsonObject.getString("user_name"));
+                                GetUserInfo.setUserPhone(jsonObject.getString("user_phone"));
+                                GetUserInfo.setUserLoginState(jsonObject.getString("login_state"));
+                                GetUserInfo.setUserAddress(jsonObject.getString("user_address"));
 
-                            } else {
-                                Toast.makeText(LoginActivity.this,"账户密码错误",Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+
+                                LoginStateUtil.setLoginState(1);
+                                startActivity(intent);
+
                             }
-                            Toast.makeText(LoginActivity.this,name,Toast.LENGTH_SHORT).show();
+                            //passwordWrong代表数据库中有该账户，但是密码输错了
+                            else if(name.equals("passwordWrong")) {
+                                Toast.makeText(LoginActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
+                            }
+                            //最后一种情况是不存在该账户
+                            else{
+                                Toast.makeText(LoginActivity.this,"不存在该账户",Toast.LENGTH_SHORT).show();
+                            }
+
 
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            Toast.makeText(LoginActivity.this,"账户密码错误",Toast.LENGTH_SHORT).show();
                         }
 
                     }
