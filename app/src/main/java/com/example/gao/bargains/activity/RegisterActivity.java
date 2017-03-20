@@ -26,9 +26,9 @@ import org.json.JSONObject;
  */
 
 public class RegisterActivity extends Activity {
-    String name;
+    String state_of_json;
     Button btn_register;
-    EditText etRegAccount,etRegPassword,etRegSurePassword;
+    EditText etRegAccount,etRegPassword,etRegSurePassword,etPhone,etName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +37,8 @@ public class RegisterActivity extends Activity {
         etRegAccount = (EditText)findViewById(R.id.etRegAccount);
         etRegPassword = (EditText)findViewById(R.id.etRegPassword);
         etRegSurePassword = (EditText)findViewById(R.id.etSurePassword);
-
+        etPhone = (EditText) findViewById(R.id.etPhone);
+        etName = (EditText) findViewById(R.id.etName);
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,9 +59,12 @@ public class RegisterActivity extends Activity {
                 RequestQueue mQueue = Volley.newRequestQueue(RegisterActivity.this);
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("name", etRegAccount.getText().toString());
-                    jsonObject.put("password", etRegPassword.getText().toString());
-                    jsonObject.put("surePassword", etRegSurePassword.getText().toString());
+                    jsonObject.put("user_account", etRegAccount.getText().toString());
+                    jsonObject.put("user_password", etRegPassword.getText().toString());
+                    jsonObject.put("user_name", etName.getText().toString());
+                    jsonObject.put("user_phone", etPhone.getText().toString());
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -68,11 +72,11 @@ public class RegisterActivity extends Activity {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
                         try {
-                            name=jsonObject.toString();
-                            if(name.contains("success")){
+                            state_of_json=jsonObject.getString("state");
+                            if(state_of_json.equals("success")){
                                 Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
                                 startActivity(intent);
-                            } else if(name.contains("error")){
+                            } else if(state_of_json.equals("error")){
                                 Toast.makeText(RegisterActivity.this,"用户已存在，请换个账号注册",Toast.LENGTH_SHORT).show();
                             }
 
@@ -84,6 +88,7 @@ public class RegisterActivity extends Activity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
+                        //Toast.makeText(getApplicationContext(),volleyError.toString(),Toast.LENGTH_SHORT).show();
                         Toast.makeText(getApplicationContext(),volleyError.toString(),Toast.LENGTH_SHORT).show();
                     }
                 });

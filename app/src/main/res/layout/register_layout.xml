@@ -77,6 +77,49 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginLeft="55dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="姓名："
+                />
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+
+                android:hint="请在此输入姓名"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginLeft="55dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手机："
+                />
+            <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+
+                android:hint="请在此输入手机号"
+                 />
+
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

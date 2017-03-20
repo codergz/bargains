@@ -49,7 +49,7 @@ import java.util.Map;
 public class LoginActivity extends Activity {
     Button btnLogin, btnRegister;
     EditText etAccount = null, etPassword = null;
-    String name = null;
+    String state_of_json = null;
     View mMainView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +90,9 @@ public class LoginActivity extends Activity {
                     public void onResponse(JSONObject jsonObject) {
                         try {
 
-                            name = jsonObject.getString("state");
+                            state_of_json = jsonObject.getString("state");
                             //success代表账户密码都正确
-                            if (name.equals("success")) {
+                            if (state_of_json.equals("success")) {
                                 GetUserInfo.setUserId(jsonObject.getString("id"));
                                 GetUserInfo.setUserAccount(jsonObject.getString("user_account"));
                                 GetUserInfo.setUserPassword(jsonObject.getString("user_password"));
@@ -109,7 +109,7 @@ public class LoginActivity extends Activity {
 
                             }
                             //passwordWrong代表数据库中有该账户，但是密码输错了
-                            else if(name.equals("passwordWrong")) {
+                            else if(state_of_json.equals("passwordWrong")) {
                                 Toast.makeText(LoginActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
                             }
                             //最后一种情况是不存在该账户
@@ -119,7 +119,7 @@ public class LoginActivity extends Activity {
 
 
                         } catch (JSONException e) {
-                            Toast.makeText(LoginActivity.this,"账户密码错误",Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
                         }
 
                     }
