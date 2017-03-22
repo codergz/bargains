@@ -1,5 +1,9 @@
 package com.example.gao.bargains.utils;
 
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
+
 import com.baidu.mapapi.model.LatLng;
 
 import java.text.NumberFormat;
@@ -9,6 +13,16 @@ import java.text.NumberFormat;
  */
 
 public class DistanceUtil {
+    private static LatLng latlng;
+
+    public static LatLng getLatlng(){
+       return latlng;
+    }
+
+    public static void setLatlng(LatLng latLng){
+        latlng = latLng;
+    }
+
     public static String getDistance(LatLng start, LatLng end) {
         //自己实现距离算法：
         /**

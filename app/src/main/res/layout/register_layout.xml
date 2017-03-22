@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/login_register"
+    >
 
 
     <LinearLayout
@@ -9,7 +11,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="130dp"
         >
 
 
@@ -25,10 +27,10 @@
                 />
             <EditText
                 android:id="@+id/etRegAccount"
-                android:layout_width="250dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-
-                android:hint="请在此输入您要注册的账户"
+                android:maxLines="1"
+                android:hint="请在此输入注册的账户"
                 />
 
 
@@ -47,9 +49,9 @@
                 />
             <EditText
                 android:id="@+id/etRegPassword"
-                android:layout_width="250dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-
+                android:maxLines="1"
                 android:hint="请在此输入登录密码"
                 android:inputType="textPassword" />
 
@@ -65,11 +67,12 @@
                 android:layout_height="wrap_content"
                 android:text="确认密码："
                 />
+
             <EditText
                 android:id="@+id/etSurePassword"
-                android:layout_width="250dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-
+                android:maxLines="1"
                 android:hint="请与上栏密码保持一致"
                 android:inputType="textPassword" />
 
@@ -88,9 +91,9 @@
                 />
             <EditText
                 android:id="@+id/etName"
-                android:layout_width="250dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-
+                android:maxLines="1"
                 android:hint="请在此输入姓名"
                 />
         </LinearLayout>
@@ -106,9 +109,9 @@
                 />
             <EditText
                 android:id="@+id/etPhone"
-                android:layout_width="250dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-
+                android:maxLines="1"
                 android:hint="请在此输入手机号"
                  />
 
@@ -128,10 +131,10 @@
 
             <Button
                 android:id="@+id/btn_reg_register"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
                 android:text="@string/btn_register"
-                android:background="@color/common_blue"
+                android:background="@drawable/button_login_register_style"
                 />
 
         </LinearLayout>

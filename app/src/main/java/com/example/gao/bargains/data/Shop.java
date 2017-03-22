@@ -1,6 +1,10 @@
 package com.example.gao.bargains.data;
 
+import android.os.Parcelable;
+
 import com.baidu.mapapi.model.LatLng;
+
+import java.io.Serializable;
 
 /**
  * Created by gao on 2017/3/6.
@@ -24,6 +28,7 @@ public class Shop {
     public Shop(String uid){
         this.uid = uid;
     }
+
 
     public Shop(String uid,String shop_name, int imageId, String distance, String address, String price, String commentNum, String phoneNum, LatLng latLng){
         this.uid = uid;

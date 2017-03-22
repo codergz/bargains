@@ -42,7 +42,15 @@
             android:textColor="@color/common_white"
 
             />
+            <Button
+                android:id="@+id/per_log_out"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
 
+
+                android:layout_gravity="center"
+                android:background="@drawable/exit"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -78,16 +86,7 @@
                />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/per_log_out"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="退出登录"
-            android:layout_below="@id/per_money_favorite"
-            android:layout_marginTop="300dp"
-            android:layout_centerVertical="true"
-            android:layout_centerInParent="true"
-            />
+
     </RelativeLayout>
 
 </LinearLayout>

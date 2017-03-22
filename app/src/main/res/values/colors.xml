@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <drawable name="transparent">#00000000</drawable>
-
+    <color name="main">#16b3ef</color>
     <color name="common_white">#ffffff</color>
     <color name="common_title">#06c1ae</color>
     <color name="common_white_shadow">#414141</color>

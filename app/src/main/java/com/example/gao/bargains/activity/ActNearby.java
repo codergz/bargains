@@ -38,6 +38,7 @@ import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.baidu.mapapi.search.poi.PoiSortType;
 import com.example.gao.bargains.R;
+import com.example.gao.bargains.utils.DistanceUtil;
 import com.example.gao.bargains.utils.MyPoiOverlay;
 import com.example.gao.bargains.utils.overlayutil.PoiOverlay;
 
@@ -184,7 +185,7 @@ public class ActNearby extends Fragment {
     private void navigateTo(Location location) {
         if (isFirstLocate) {
             LatLng mLl = new LatLng(location.getLatitude(), location.getLongitude());
-
+            DistanceUtil.setLatlng(mLl);
             MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(mLl);
             baiduMap.animateMapStatus(update);
             update = MapStatusUpdateFactory.zoomTo(16f);

@@ -34,7 +34,7 @@
         <activity android:name=".activity.ActShopDetailPage"/>
         <activity android:name=".activity.ActMap"/>
         <activity android:name=".activity.ActUserInfo"/>
-
+        <activity android:name=".activity.ActFavorite"/>
     </application>
 
 </manifest>

@@ -76,8 +76,8 @@ public class RegisterActivity extends Activity {
                             if(state_of_json.equals("success")){
                                 Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
                                 startActivity(intent);
-                            } else if(state_of_json.equals("error")){
-                                Toast.makeText(RegisterActivity.this,"用户已存在，请换个账号注册",Toast.LENGTH_SHORT).show();
+                            } else if(state_of_json.equals("exist")){
+                                Toast.makeText(RegisterActivity.this,"抱歉，用户已存在，请换个账号注册",Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (Exception e) {
