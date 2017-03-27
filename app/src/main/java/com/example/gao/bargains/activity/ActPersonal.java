@@ -173,9 +173,11 @@ public class ActPersonal extends Fragment {
                                     String shop_phone = jsonObject_1.getString("shop_phone");
                                     Double shop_latitude = jsonObject_1.getDouble("shop_latitude");
                                     Double shop_longitude = jsonObject_1.getDouble("shop_longitude");
+                                    String shop_city = jsonObject_1.getString("shop_city");
+                                    String shop_keyword = jsonObject_1.getString("shop_keyword");
                                     LatLng latLng = new LatLng(shop_latitude,shop_longitude);
                                     String distance = DistanceUtil.getDistance(DistanceUtil.getLatlng(),latLng);
-                                    Shop shop = new Shop(shop_uid,shop_name,0,distance,shop_address,shop_price,shop_comment,shop_phone,latLng);
+                                    Shop shop = new Shop(shop_uid,shop_name,0,distance,shop_address,shop_price,shop_comment,shop_phone,latLng,shop_city,shop_keyword);
                                     GetFavoriteList.getList().add(shop);
 
                                   //  Toast.makeText(getContext(),shop_name,Toast.LENGTH_LONG).show();

@@ -20,7 +20,8 @@ public class Shop {
     private String commentNum;
     private String phoneNum;
     private LatLng latLng;
-
+    private String shop_city;
+    private String shop_keyword;
     public LatLng getLatLng() {
         return latLng;
     }
@@ -30,7 +31,7 @@ public class Shop {
     }
 
 
-    public Shop(String uid,String shop_name, int imageId, String distance, String address, String price, String commentNum, String phoneNum, LatLng latLng){
+    public Shop(String uid,String shop_name, int imageId, String distance, String address, String price, String commentNum, String phoneNum, LatLng latLng, String shop_city, String shop_keyword){
         this.uid = uid;
         this.shop_name = shop_name;
         this.imageId = imageId;
@@ -40,6 +41,8 @@ public class Shop {
         this.commentNum = commentNum;
         this.phoneNum = phoneNum;
         this.latLng = latLng;
+        this.shop_city = shop_city;
+        this.shop_keyword = shop_keyword;
     }
 
     public String getUid() {
@@ -104,5 +107,12 @@ public class Shop {
 
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
+    }
+
+    public String getShop_city(){
+        return  shop_city;
+    }
+    public String getShop_keyword(){
+        return shop_keyword;
     }
 }

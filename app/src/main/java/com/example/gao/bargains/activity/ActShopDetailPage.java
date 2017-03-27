@@ -39,7 +39,7 @@ public class ActShopDetailPage extends Activity {
     TextView shop_detail_name,shop_detail_price,shop_detail_address;
     Button shop_detail_backward,shop_detail_favorite,shop_detail_order,shop_detail_location,shop_detail_phone;
     String shop_name,shop_price,shop_address,shop_phone,state_of_json;
-    String shop_uid,shop_comment;
+    String shop_uid,shop_comment,shop_image,shop_city,shop_keyword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,10 +68,13 @@ public class ActShopDetailPage extends Activity {
         Bundle bundle = intent.getExtras();
          shop_uid = bundle.getString("shop_uid");
          shop_name = bundle.getString("shop_name");
+         shop_image = bundle.getString("shop_image");
          shop_price = bundle.getString("price");
          shop_comment = bundle.getString("comment");
          shop_address = bundle.getString("address");
          shop_phone = bundle.getString("phoneNum");
+        shop_city = bundle.getString("shop_city");
+        shop_keyword = bundle.getString("shop_keyword");
         final Double latitude = bundle.getDouble("latitude");
         final Double longitude = bundle.getDouble("longitude");
 
@@ -114,8 +117,8 @@ public class ActShopDetailPage extends Activity {
                         jsonObject.put("shop_phone", shop_phone);
                         jsonObject.put("shop_latitude", latitude);
                         jsonObject.put("shop_longitude", longitude);
-
-
+                        jsonObject.put("shop_city", shop_city);
+                        jsonObject.put("shop_keyword", shop_keyword);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
