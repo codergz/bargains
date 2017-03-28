@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Shop {
     private String uid;
     private String shop_name;
-    private int imageId;
+    private String imageId;
     private String distance;
     private String address;
     private String price;
@@ -31,7 +31,7 @@ public class Shop {
     }
 
 
-    public Shop(String uid,String shop_name, int imageId, String distance, String address, String price, String commentNum, String phoneNum, LatLng latLng, String shop_city, String shop_keyword){
+    public Shop(String uid,String shop_name, String imageId, String distance, String address, String price, String commentNum, String phoneNum, LatLng latLng, String shop_city, String shop_keyword){
         this.uid = uid;
         this.shop_name = shop_name;
         this.imageId = imageId;
@@ -61,11 +61,11 @@ public class Shop {
         this.shop_name = shop_name;
     }
 
-    public int getImageId() {
+    public String getImageId() {
         return imageId;
     }
 
-    public void setImageId(int imageId) {
+    public void setImageId(String imageId) {
         this.imageId = imageId;
     }
 

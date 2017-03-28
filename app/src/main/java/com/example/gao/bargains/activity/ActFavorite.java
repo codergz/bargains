@@ -50,6 +50,7 @@ public class ActFavorite extends Activity {
                 Shop shop = list.get(position);
                 String shop_uid = shop.getUid();
                 String shop_name = shop.getShop_name();
+                String shop_image = shop.getImageId();
                 String price = shop.getPrice();
                 String commentNum = shop.getCommentNum();
                 String address = shop.getAddress();
@@ -62,6 +63,7 @@ public class ActFavorite extends Activity {
                 Intent intent = new Intent(ActFavorite.this,ActShopDetailPage.class);
                 intent.putExtra("shop_uid",shop_uid);
                 intent.putExtra("shop_name",shop_name);
+                intent.putExtra("shop_image",shop_image);
                 intent.putExtra("price",price);
                 intent.putExtra("commentNum",commentNum);
                 intent.putExtra("address",address);

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,6 +32,7 @@ public class ActUserInfo extends Activity {
     private EditText etName,etPhone,etAddress;
     private Button btn_submit;
     private String state_of_json;
+    private TextView tvMoney;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +42,12 @@ public class ActUserInfo extends Activity {
         etPhone = (EditText) findViewById(R.id.user_info_phone);
         etAddress = (EditText) findViewById(R.id.user_info_address);
         btn_submit = (Button) findViewById(R.id.user_info_submit);
-
+        tvMoney = (TextView) findViewById(R.id.user_info_money);
 
         etName.setText(GetUserInfo.getUserName());
         etPhone.setText(GetUserInfo.getUserPhone());
         etAddress.setText(GetUserInfo.getUserAddress());
-
+        tvMoney.setText(GetUserInfo.getUserMoney().toString());
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override

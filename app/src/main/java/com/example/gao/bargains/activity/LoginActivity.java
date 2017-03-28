@@ -100,7 +100,7 @@ public class LoginActivity extends Activity {
                                 GetUserInfo.setUserPhone(jsonObject.getString("user_phone"));
                                 GetUserInfo.setUserLoginState(jsonObject.getString("login_state"));
                                 GetUserInfo.setUserAddress(jsonObject.getString("user_address"));
-
+                                GetUserInfo.setUserMoney(jsonObject.getDouble("user_money"));
 
                                 Intent intent = new Intent(LoginActivity.this,MainActivity.class);
 

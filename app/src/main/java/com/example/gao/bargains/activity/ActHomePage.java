@@ -93,7 +93,7 @@ public class ActHomePage extends Fragment {
                 Shop shop = list.get(position);
                 String shop_uid = shop.getUid();
                 String shop_name = shop.getShop_name();
-                int shop_image = shop.getImageId();
+                String shop_image = shop.getImageId();
                 String price = shop.getPrice();
                 String comment = shop.getCommentNum();
                 String address = shop.getAddress();
@@ -152,6 +152,7 @@ public class ActHomePage extends Fragment {
                                 jsonObject_1 = jsonArray.getJSONObject(i);
                                 String shop_uid = jsonObject_1.getString("shop_uid");
                                 String shop_name = jsonObject_1.getString("shop_name");
+                                String shop_image = jsonObject_1.getString("shop_image");
                                 String shop_price = jsonObject_1.getString("shop_price");
                                 String shop_comment = jsonObject_1.getString("shop_comment");
                                 String shop_address = jsonObject_1.getString("shop_address");
@@ -162,7 +163,7 @@ public class ActHomePage extends Fragment {
                                 String shop_keyword = jsonObject_1.getString("shop_keyword");
                                 LatLng latLng = new LatLng(shop_latitude,shop_longitude);
                                 String distance = DistanceUtil.getDistance(DistanceUtil.getLatlng(),latLng);
-                                Shop shop = new Shop(shop_uid,shop_name,0,distance,shop_address,shop_price,shop_comment,shop_phone,latLng,shop_city,shop_keyword);
+                                Shop shop = new Shop(shop_uid,shop_name,shop_image,distance,shop_address,shop_price,shop_comment,shop_phone,latLng,shop_city,shop_keyword);
                                 list.add(shop);
 
                                 //  Toast.makeText(getContext(),shop_name,Toast.LENGTH_LONG).show();

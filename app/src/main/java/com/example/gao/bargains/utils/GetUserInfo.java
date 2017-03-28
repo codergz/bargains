@@ -14,6 +14,7 @@ public class GetUserInfo {
     public static String user_phone = "未登陆";
     public static String login_state = "0";
     public static String user_address = "未登陆";
+    public static Double user_money = 1000.0;
 
     public static String getUserId(){
         return user_id;
@@ -66,8 +67,26 @@ public class GetUserInfo {
         user_address = address;
     }
 
+    public static Double getUserMoney(){
+        return user_money;
+    }
+    public static void setUserMoney(Double money){
+        user_money = money;
+    }
 
 
+    public static void clear(){
 
+        user_id = "请点击登录";
+        user_account = "请点击登录";
+
+        user_password = "未登录";
+        user_name = "未登录";
+        user_phone = "未登陆";
+        login_state = "0";
+        user_address = "未登陆";
+        user_money = 1000.0;
+
+    }
 
 }

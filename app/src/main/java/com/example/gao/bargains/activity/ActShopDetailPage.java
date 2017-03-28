@@ -110,6 +110,7 @@ public class ActShopDetailPage extends Activity {
                         jsonObject.put("shop_uid",shop_uid);
                         jsonObject.put("user_id", GetUserInfo.getUserId());
                         jsonObject.put("shop_name", shop_name);
+                        jsonObject.put("shop_image", shop_image);
                         jsonObject.put("shop_price", shop_price);
                         jsonObject.put("shop_comment", shop_comment);
 
@@ -188,7 +189,7 @@ public class ActShopDetailPage extends Activity {
                             Toast.makeText(getApplicationContext(), volleyError.toString(), Toast.LENGTH_SHORT).show();
                         }
                     });
-                    request.setTag("reg");
+                    request.setTag("collect");
                     mQueue.add(request);
                     mQueue.start();
 
@@ -196,6 +197,103 @@ public class ActShopDetailPage extends Activity {
                 }
             }//onClick
         });//收藏点击事件
+
+
+        //抢购按钮点击事件
+        shop_detail_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //未登录不可以下单
+                if(LoginStateUtil.getLoginState() == 0){
+                    Intent intent = new Intent(ActShopDetailPage.this,LoginActivity.class);
+                    startActivity(intent);
+                }
+                //如果登陆了，进行下单逻辑
+                else{
+                    RequestQueue mQueue = Volley.newRequestQueue(ActShopDetailPage.this);
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("shop_uid",shop_uid);
+                        jsonObject.put("user_id", GetUserInfo.getUserId());
+                        jsonObject.put("shop_name",shop_name);
+                        jsonObject.put("shop_price",shop_price);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Config.USERORDER_URL, jsonObject, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject jsonObject) {
+                            try {
+                                state_of_json = jsonObject.getString("state");
+                                if (state_of_json.equals("success")) {
+                                    //更改用户的钱数
+                                    GetUserInfo.setUserMoney(GetUserInfo.getUserMoney()-Double.parseDouble(shop_price));
+                                    new AlertDialog.Builder(ActShopDetailPage.this).setTitle("系统提示")//设置对话框标题
+
+                                            .setMessage("下单成功！")//设置显示的内容
+
+                                            .setPositiveButton("确定",new DialogInterface.OnClickListener() {//添加确定按钮
+
+
+
+                                                @Override
+
+                                                public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
+
+                                                    // TODO Auto-generated method stub
+
+
+
+                                                }
+
+                                            }).show();//在按键响应事件中显示此对话框
+
+
+
+
+                                } else if (state_of_json.equals("not_enough")) {
+                                    new AlertDialog.Builder(ActShopDetailPage.this).setTitle("系统提示")
+
+                                            .setMessage("下单失败！您的余额不足")
+
+                                            .setPositiveButton("确定",new DialogInterface.OnClickListener() {//添加确定按钮
+
+
+
+                                                @Override
+
+                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                    // TODO Auto-generated method stub
+
+
+
+                                                }
+
+                                            }).show();//在按键响应事件中显示此对话框
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            //Toast.makeText(getApplicationContext(),volleyError.toString(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), volleyError.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    request.setTag("order");
+                    mQueue.add(request);
+                    mQueue.start();
+                }
+            }
+        });
+
+
 
 
         //定位按钮点击事件
