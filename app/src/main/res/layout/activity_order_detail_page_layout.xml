@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@color/common_title"
+        >
+        <Button
+            android:id="@+id/order_detail_backward"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/icon_backward_style"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单详情"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="订单编号："
+            />
+        <TextView
+            android:id="@+id/order_detail_order_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="1"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        >
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="商家名称："
+            />
+        <TextView
+            android:id="@+id/order_detail_shop_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="玉桥餐厅"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        >
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="交易价格： "
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/RMB"
+            android:textColor="@color/colorAccent"
+            />
+        <TextView
+            android:id="@+id/order_detail_shop_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="55"
+            android:textColor="@color/colorAccent"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        >
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下单用户："
+            />
+        <TextView
+            android:id="@+id/order_detail_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="高瞻"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        >
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下单时间："
+            />
+        <TextView
+            android:id="@+id/order_detail_order_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2017-03-30 15:49:12.0"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        >
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="评论状态："
+            />
+        <TextView
+            android:id="@+id/order_detail_comment_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/common_title"
+            android:text="未评论"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        >
+
+        <Button
+            android:id="@+id/order_detail_add_comment"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/common_title"
+            android:background="@color/common_white_disabled"
+            android:text="去评价"
+            />
+        <Button
+            android:id="@+id/order_detail_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/common_title"
+            android:layout_marginLeft="20dp"
+            android:text="删除订单"
+            android:background="@color/common_white_disabled"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

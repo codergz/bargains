@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,6 +35,8 @@ import java.util.List;
  */
 
 public class ActFavorite extends Activity {
+
+    public Button favorite_list_backward;
     public ListView listView;
     private String provider;
     private List<Shop> list = GetFavoriteList.getList();
@@ -44,6 +47,17 @@ public class ActFavorite extends Activity {
         setContentView(R.layout.activity_favorite);
 
         listView = (ListView) findViewById(R.id.listview);
+        favorite_list_backward = (Button) findViewById(R.id.favorite_list_backward);
+
+        favorite_list_backward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

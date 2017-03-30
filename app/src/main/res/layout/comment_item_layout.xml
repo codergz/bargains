@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        >
+
+
+        <TextView
+            android:id="@+id/comment_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:text="真的很不错哦！"
+
+            />
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:layout_alignParentBottom="true"
+
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:text="用户111"
+            />
+
+        <TextView
+            android:id="@+id/comment_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2017-3-27"
+
+            android:layout_marginTop="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            />
+
+
+    </RelativeLayout>
+</LinearLayout>

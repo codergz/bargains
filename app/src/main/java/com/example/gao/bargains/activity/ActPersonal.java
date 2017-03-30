@@ -149,12 +149,14 @@ public class ActPersonal extends Fragment {
                                 for(int i = 0 ; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject_1  = new JSONObject();
                                     jsonObject_1 = jsonArray.getJSONObject(i);
+                                    String order_id = jsonObject_1.getString("order_id");
                                     String shop_uid = jsonObject_1.getString("shop_uid");
                                     String user_id = jsonObject_1.getString("user_id");
                                     String shop_name = jsonObject_1.getString("shop_name");
                                     String shop_price = jsonObject_1.getString("shop_price");
+                                    String comment_state = jsonObject_1.getString("comment_state");
                                     String order_time = jsonObject_1.getString("order_time");
-                                    Order order = new Order(shop_uid,Integer.parseInt(user_id),shop_name,shop_price,order_time);
+                                    Order order = new Order(Integer.parseInt(order_id),shop_uid,Integer.parseInt(user_id),shop_name,shop_price,Integer.parseInt(comment_state),order_time);
                                      GetOrderList.getList().add(order);
 
                                     //  Toast.makeText(getContext(),shop_name,Toast.LENGTH_LONG).show();

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,12 +23,20 @@ import com.android.volley.toolbox.Volley;
 import com.baidu.mapapi.model.LatLng;
 import com.example.gao.bargains.Config;
 import com.example.gao.bargains.R;
+import com.example.gao.bargains.adapter.CommentAdapter;
+import com.example.gao.bargains.adapter.OrderAdapter;
+import com.example.gao.bargains.data.Comment;
+import com.example.gao.bargains.data.Order;
+import com.example.gao.bargains.utils.GetOrderList;
 import com.example.gao.bargains.utils.GetUserInfo;
 import com.example.gao.bargains.utils.LoginStateUtil;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -37,9 +46,15 @@ import org.json.JSONObject;
 public class ActShopDetailPage extends Activity {
 
     TextView shop_detail_name,shop_detail_price,shop_detail_address;
-    Button shop_detail_backward,shop_detail_favorite,shop_detail_order,shop_detail_location,shop_detail_phone;
+    Button shop_detail_backward,shop_detail_favorite,shop_detail_order,shop_detail_location,shop_detail_phone,getComment;
     String shop_name,shop_price,shop_address,shop_phone,state_of_json;
     String shop_uid,shop_comment,shop_image,shop_city,shop_keyword;
+
+
+    public ListView listView;
+    private String provider;
+    private List<Comment> list =new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,17 +77,18 @@ public class ActShopDetailPage extends Activity {
         shop_detail_order = (Button) findViewById(R.id.order);
         shop_detail_location = (Button) findViewById(R.id.location);
         shop_detail_phone = (Button) findViewById(R.id.phone);
+//        getComment = (Button)findViewById(R.id.getComment);
 
-
+        //得到基本信息逻辑
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-         shop_uid = bundle.getString("shop_uid");
-         shop_name = bundle.getString("shop_name");
-         shop_image = bundle.getString("shop_image");
-         shop_price = bundle.getString("price");
-         shop_comment = bundle.getString("comment");
-         shop_address = bundle.getString("address");
-         shop_phone = bundle.getString("phoneNum");
+        shop_uid = bundle.getString("shop_uid");
+        shop_name = bundle.getString("shop_name");
+        shop_image = bundle.getString("shop_image");
+        shop_price = bundle.getString("price");
+        shop_comment = bundle.getString("comment");
+        shop_address = bundle.getString("address");
+        shop_phone = bundle.getString("phoneNum");
         shop_city = bundle.getString("shop_city");
         shop_keyword = bundle.getString("shop_keyword");
         final Double latitude = bundle.getDouble("latitude");
@@ -81,6 +97,63 @@ public class ActShopDetailPage extends Activity {
         shop_detail_name.setText(shop_name);
         shop_detail_price.setText(shop_price);
         shop_detail_address.setText(shop_address);
+
+        //得到评论逻辑
+        listView = (ListView) findViewById(R.id.comment_list);
+
+        RequestQueue mQueue = Volley.newRequestQueue(ActShopDetailPage.this);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("shop_uid", shop_uid);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Config.GETCOMMENT_URL, jsonObject, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        try {
+                            String state_of_json = jsonObject.getString("state");
+
+                            JSONArray jsonArray = new JSONArray(state_of_json);
+                            for(int i = 0 ; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject_1  = new JSONObject();
+                                jsonObject_1 = jsonArray.getJSONObject(i);
+                                String shop_uid = jsonObject_1.getString("shop_uid");
+                                String user_id = jsonObject_1.getString("user_id");
+                                String user_name = jsonObject_1.getString("user_name");
+                                String comment_content = jsonObject_1.getString("comment_content");
+                                String comment_time = jsonObject_1.getString("comment_time");
+                                Comment comment = new Comment(shop_uid,Integer.parseInt(user_id),comment_content,user_name,comment_time);
+
+                                list.add(comment);
+
+                                 // Toast.makeText(ActShopDetailPage.this,shop_name,Toast.LENGTH_LONG).show();
+
+
+                            }
+
+                            CommentAdapter myAdapter = new CommentAdapter(ActShopDetailPage.this, list);
+                            listView.setAdapter(myAdapter);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+                    }
+                });
+                request.setTag("getComment");
+                mQueue.add(request);
+                mQueue.start();
+//            }
+//        });
+
+
+
+
 
 
         //回退按钮点击事件

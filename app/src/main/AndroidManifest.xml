@@ -36,6 +36,8 @@
         <activity android:name=".activity.ActUserInfo"/>
         <activity android:name=".activity.ActFavorite"/>
         <activity android:name=".activity.ActMyOrder"/>
+        <activity android:name=".activity.ActOrderDetailPage"/>
+        <activity android:name=".activity.ActAddComment"/>
     </application>
 
 </manifest>
