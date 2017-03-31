@@ -29,7 +29,7 @@ public class CommentAdapter extends BaseAdapter {
     }
     public class CommentItem{
 
-        public TextView comment_content,user_name,comment_time;
+        public TextView comment_content,comment_grade,user_name,comment_time;
     }
     @Override
     public int getCount() {
@@ -59,6 +59,7 @@ public class CommentAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.comment_item_layout,null,false);
 
             myItem.comment_content = (TextView) convertView.findViewById(R.id.comment_content);
+            myItem.comment_grade = (TextView) convertView.findViewById(R.id.comment_grade);
             myItem.user_name = (TextView) convertView.findViewById(R.id.user_name);
             myItem.comment_time = (TextView) convertView.findViewById(R.id.comment_time);
 
@@ -68,6 +69,7 @@ public class CommentAdapter extends BaseAdapter {
             myItem = (CommentAdapter.CommentItem)convertView.getTag();
         }
         myItem.comment_content.setText((String)data.get(position).getCommentContent());
+        myItem.comment_grade.setText((String)data.get(position).getCommentGrade());
         myItem.user_name.setText((String)data.get(position).getUserName());
         myItem.comment_time.setText((String)data.get(position).getCommentTime());
 

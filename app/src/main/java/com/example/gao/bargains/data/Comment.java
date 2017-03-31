@@ -8,15 +8,20 @@ public class Comment {
 
     String shop_uid;
     int user_id;
-    String comment_content;
+    int order_id;
     String user_name;
+    String comment_content;
+    String comment_grade;
     String comment_time;
 
-    public Comment(String shop_uid, int user_id, String comment_content, String user_name, String comment_time){
+    public Comment(String shop_uid, int user_id, int order_id, String user_name, String comment_content, String comment_grade, String comment_time){
         this.shop_uid = shop_uid;
         this.user_id = user_id;
-        this.comment_content = comment_content;
+        this.order_id = order_id;
         this.user_name= user_name;
+        this.comment_content = comment_content;
+        this.comment_grade = comment_grade;
+
         this.comment_time = comment_time;
 
     }
@@ -36,11 +41,11 @@ public class Comment {
         this.user_id = user_id;
     }
 
-    public String getCommentContent(){
-        return comment_content;
+    public int getOrderId(){
+        return order_id;
     }
-    public void setCommentContent(String comment_content){
-        this.comment_content= comment_content;
+    public void setOrderId(int order_id){
+        this.order_id = order_id;
     }
 
     public String getUserName(){
@@ -48,6 +53,20 @@ public class Comment {
     }
     public void setUserName(String user_name){
         this.user_name= user_name;
+    }
+
+    public String getCommentContent(){
+        return comment_content;
+    }
+    public void setCommentContent(String comment_content){
+        this.comment_content= comment_content;
+    }
+
+    public String getCommentGrade(){
+        return comment_grade;
+    }
+    public void setCommentGrade(String comment_grade){
+        this.comment_grade= comment_grade;
     }
 
     public String getCommentTime(){

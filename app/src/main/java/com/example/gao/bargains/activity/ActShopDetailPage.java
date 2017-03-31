@@ -120,10 +120,12 @@ public class ActShopDetailPage extends Activity {
                                 jsonObject_1 = jsonArray.getJSONObject(i);
                                 String shop_uid = jsonObject_1.getString("shop_uid");
                                 String user_id = jsonObject_1.getString("user_id");
+                                String order_id = jsonObject_1.getString("order_id");
                                 String user_name = jsonObject_1.getString("user_name");
                                 String comment_content = jsonObject_1.getString("comment_content");
+                                String comment_grade = jsonObject_1.getString("comment_grade");
                                 String comment_time = jsonObject_1.getString("comment_time");
-                                Comment comment = new Comment(shop_uid,Integer.parseInt(user_id),comment_content,user_name,comment_time);
+                                Comment comment = new Comment(shop_uid,Integer.parseInt(user_id),Integer.parseInt(order_id),user_name,comment_content,comment_grade,comment_time);
 
                                 list.add(comment);
 

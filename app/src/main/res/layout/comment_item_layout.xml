@@ -9,13 +9,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
         >
 
 
         <TextView
             android:id="@+id/comment_content"
-            android:layout_width="wrap_content"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:maxLines="2"
             android:textSize="18sp"
@@ -25,12 +25,24 @@
 
             />
         <TextView
+            android:id="@+id/comment_grade"
+            android:layout_marginTop="17dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/comment_content"
+            android:text="5.0"
+            android:layout_marginLeft="10dp"
+            android:textSize="30sp"
+            android:textColor="@color/common_title"
+
+            />
+        <TextView
             android:id="@+id/user_name"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:layout_alignParentBottom="true"
-
+            android:textColor="@color/common_red"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="30dp"
             android:text="用户111"
