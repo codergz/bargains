@@ -21,8 +21,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.baidu.mapapi.model.LatLng;
+
 import com.example.gao.bargains.Config;
 import com.example.gao.bargains.R;
+import com.example.gao.bargains.SysApplication;
 import com.example.gao.bargains.adapter.CommentAdapter;
 import com.example.gao.bargains.adapter.OrderAdapter;
 import com.example.gao.bargains.data.Comment;
@@ -59,6 +61,11 @@ public class ActShopDetailPage extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_detail_page);
+
+        SysApplication.getInstance().addActivity(this);
+
+
+
         Window window = getWindow();
         //取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

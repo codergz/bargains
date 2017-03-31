@@ -14,7 +14,9 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+
 import com.example.gao.bargains.R;
+import com.example.gao.bargains.SysApplication;
 
 /**
  * Created by gao on 2017/3/6.
@@ -33,6 +35,10 @@ public class ActMap extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_map_layout);
+
+        SysApplication.getInstance().addActivity(this);
+
+
         mMapView = (MapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
         //将定位点显示在地图上

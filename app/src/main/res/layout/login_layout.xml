@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_register"
+
     >
 
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
         android:orientation="vertical"
         android:layout_marginLeft="38dp"
@@ -19,21 +19,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:orientation="vertical"
             >
             <TextView
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="45dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="18sp"
                 android:text="@string/login_account"
                 />
             <EditText
                 android:id="@+id/etAccount"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+
+                android:layout_height="30dp"
                 android:maxLines="1"
-                android:hint="@string/login_account_hint"
+                android:background="@drawable/edit_bg"
                 />
 
 
@@ -42,21 +45,27 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
             <TextView
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="45dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="18sp"
                 android:text="@string/login_password"
                 />
             <EditText
                 android:id="@+id/etPassword"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_height="30dp"
                 android:maxLines="1"
-                android:hint="@string/login_password_hint"
-                android:inputType="textPassword" />
+
+                android:inputType="textPassword"
+                android:background="@drawable/edit_bg"
+                />
 
 
         </LinearLayout>
@@ -69,13 +78,14 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
         >
         <Button
             android:id="@+id/btn_login"
             android:layout_width="70dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
+
             android:text="@string/btn_login"
 
             android:background="@drawable/button_login_register_style"
@@ -85,12 +95,14 @@
             android:layout_marginLeft="10dp"
             android:id="@+id/btn_register"
             android:layout_width="70dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:text="@string/btn_register"
             android:background="@drawable/button_login_register_style"
             />
 
     </LinearLayout>
+
+
 
 
 </LinearLayout>

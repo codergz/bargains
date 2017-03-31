@@ -17,8 +17,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
 import com.example.gao.bargains.Config;
 import com.example.gao.bargains.R;
+import com.example.gao.bargains.SysApplication;
 import com.example.gao.bargains.utils.GetUserInfo;
 
 import org.json.JSONException;
@@ -37,6 +39,8 @@ public class ActUserInfo extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
+
+        SysApplication.getInstance().addActivity(this);
 
         etName = (EditText) findViewById(R.id.user_info_name);
         etPhone = (EditText) findViewById(R.id.user_info_phone);

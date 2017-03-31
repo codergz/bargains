@@ -10,15 +10,30 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import com.example.gao.bargains.Config;
 import com.example.gao.bargains.R;
+import com.example.gao.bargains.SysApplication;
+import com.example.gao.bargains.data.Order;
+import com.example.gao.bargains.utils.GetOrderList;
 import com.example.gao.bargains.utils.GetUserInfo;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
  * Created by gao on 2017/3/30.
  */
 
-public class ActOrderDetailPage extends Activity{
+public class ActOrderDetailPage extends Activity {
 
     public TextView order_detail_order_id,order_detail_shop_name,order_detail_shop_price,order_detail_user_name,order_detail_order_time,order_detail_comment_state;
     public Button order_detail_backward,order_detail_add_comment,order_detail_delete;
@@ -30,6 +45,9 @@ public class ActOrderDetailPage extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail_page_layout);
+
+        SysApplication.getInstance().addActivity(this);
+
 
         order_detail_order_id = (TextView) findViewById(R.id.order_detail_order_id);
         order_detail_shop_name = (TextView) findViewById(R.id.order_detail_shop_name);
@@ -68,7 +86,8 @@ public class ActOrderDetailPage extends Activity{
         order_detail_backward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(ActOrderDetailPage.this,ActMyOrder.class);
+                startActivity(intent);
             }
         });
 
@@ -116,9 +135,51 @@ public class ActOrderDetailPage extends Activity{
         order_detail_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ActOrderDetailPage.this,"Delete Order!",Toast.LENGTH_LONG).show();
+                //Toast.makeText(ActOrderDetailPage.this,"Delete Order!",Toast.LENGTH_LONG).show();
+                RequestQueue mQueue = Volley.newRequestQueue(ActOrderDetailPage.this);
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("order_id", order_id);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Config.DELETEORDER_URL, jsonObject, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        try {
+                            String state_of_json = jsonObject.getString("state");
+
+                            if(state_of_json.equals("success")){
+
+                                Intent intent = new Intent(ActOrderDetailPage.this,ActMyOrder.class);
+                                startActivity(intent);
+
+
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+                    }
+                });
+                request.setTag("DeleteOrder");
+                mQueue.add(request);
+                mQueue.start();
             }
         });
 
+    }
+
+    public void onBackPressed() {
+        Intent intent = new Intent(ActOrderDetailPage.this,ActMyOrder.class);
+        startActivity(intent);
+        super.onBackPressed();
     }
 }

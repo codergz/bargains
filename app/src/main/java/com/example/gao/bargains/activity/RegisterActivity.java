@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.gao.bargains.Config;
 import com.example.gao.bargains.R;
+import com.example.gao.bargains.SysApplication;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +34,9 @@ public class RegisterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
+
+        SysApplication.getInstance().addActivity(this);
+
         btn_register = (Button)findViewById(R.id.btn_reg_register);
         etRegAccount = (EditText)findViewById(R.id.etRegAccount);
         etRegPassword = (EditText)findViewById(R.id.etRegPassword);

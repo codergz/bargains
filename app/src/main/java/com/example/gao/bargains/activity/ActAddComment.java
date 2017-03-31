@@ -20,8 +20,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
 import com.example.gao.bargains.Config;
 import com.example.gao.bargains.R;
+import com.example.gao.bargains.SysApplication;
 import com.example.gao.bargains.data.Order;
 import com.example.gao.bargains.utils.GetOrderList;
 import com.example.gao.bargains.utils.GetUserInfo;
@@ -55,6 +57,8 @@ public class ActAddComment extends Activity implements AdapterView.OnItemSelecte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_comment_layout);
+
+        SysApplication.getInstance().addActivity(this);
 
         add_comment_backward = (Button) findViewById(R.id.add_comment_backward);
         btn_add_comment = (Button) findViewById(R.id.btn_add_comment);

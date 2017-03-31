@@ -1,6 +1,8 @@
 package com.example.gao.bargains.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.WindowManager;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.MapView;
 import com.example.gao.bargains.R;
+import com.example.gao.bargains.SysApplication;
 import com.example.gao.bargains.ui.IndicatorFragmentActivity;
 
 import java.util.List;
@@ -26,6 +29,8 @@ public class MainActivity extends IndicatorFragmentActivity {
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
+
+        SysApplication.getInstance().addActivity(this);
 
         SDKInitializer.initialize(getApplicationContext());
 
@@ -51,5 +56,33 @@ public class MainActivity extends IndicatorFragmentActivity {
                 ActPersonal.class));
 
         return FRAGMENT_THREE;
+    }
+
+
+    public void onBackPressed() {
+        new AlertDialog.Builder(MainActivity.this).setTitle("系统提示")//设置对话框标题
+
+                .setMessage("您确定要退出程序？")//设置显示的内容
+
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).setPositiveButton("确定",new DialogInterface.OnClickListener() {//添加确定按钮
+
+
+
+                    @Override
+
+                    public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
+
+                        // TODO Auto-generated method stub
+
+                        SysApplication.getInstance().exit();
+
+                    }
+
+                }).show();//在按键响应事件中显示此对话框
     }
 }

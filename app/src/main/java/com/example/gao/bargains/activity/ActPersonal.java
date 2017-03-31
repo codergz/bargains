@@ -131,55 +131,59 @@ public class ActPersonal extends Fragment {
                     startActivity(intent);
                 }else{
                     //已登录的正常逻辑
-                    RequestQueue mQueue = Volley.newRequestQueue(getActivity());
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                        jsonObject.put("user_id", GetUserInfo.getUserId());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
 
-                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Config.MYORDER_URL, jsonObject, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject jsonObject) {
-                            try {
-                                String state_of_json = jsonObject.getString("state");
-                                GetOrderList.getList().clear();
-                                JSONArray jsonArray = new JSONArray(state_of_json);
-                                for(int i = 0 ; i < jsonArray.length(); i++) {
-                                    JSONObject jsonObject_1  = new JSONObject();
-                                    jsonObject_1 = jsonArray.getJSONObject(i);
-                                    String order_id = jsonObject_1.getString("order_id");
-                                    String shop_uid = jsonObject_1.getString("shop_uid");
-                                    String user_id = jsonObject_1.getString("user_id");
-                                    String shop_name = jsonObject_1.getString("shop_name");
-                                    String shop_price = jsonObject_1.getString("shop_price");
-                                    String comment_state = jsonObject_1.getString("comment_state");
-                                    String order_time = jsonObject_1.getString("order_time");
-                                    Order order = new Order(Integer.parseInt(order_id),shop_uid,Integer.parseInt(user_id),shop_name,shop_price,Integer.parseInt(comment_state),order_time);
-                                     GetOrderList.getList().add(order);
+                    Intent intent = new Intent(getActivity(),ActMyOrder.class);
+                    startActivity(intent);
 
-                                    //  Toast.makeText(getContext(),shop_name,Toast.LENGTH_LONG).show();
-
-
-                                }
-                                Intent intent = new Intent(getActivity(),ActMyOrder.class);
-                                startActivity(intent);
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-
-                        }
-                    });
-                    request.setTag("myFavorite");
-                    mQueue.add(request);
-                    mQueue.start();
+//                    RequestQueue mQueue = Volley.newRequestQueue(getActivity());
+//                    JSONObject jsonObject = new JSONObject();
+//                    try {
+//                        jsonObject.put("user_id", GetUserInfo.getUserId());
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Config.MYORDER_URL, jsonObject, new Response.Listener<JSONObject>() {
+//                        @Override
+//                        public void onResponse(JSONObject jsonObject) {
+//                            try {
+//                                String state_of_json = jsonObject.getString("state");
+//                                GetOrderList.getList().clear();
+//                                JSONArray jsonArray = new JSONArray(state_of_json);
+//                                for(int i = 0 ; i < jsonArray.length(); i++) {
+//                                    JSONObject jsonObject_1  = new JSONObject();
+//                                    jsonObject_1 = jsonArray.getJSONObject(i);
+//                                    String order_id = jsonObject_1.getString("order_id");
+//                                    String shop_uid = jsonObject_1.getString("shop_uid");
+//                                    String user_id = jsonObject_1.getString("user_id");
+//                                    String shop_name = jsonObject_1.getString("shop_name");
+//                                    String shop_price = jsonObject_1.getString("shop_price");
+//                                    String comment_state = jsonObject_1.getString("comment_state");
+//                                    String order_time = jsonObject_1.getString("order_time");
+//                                    Order order = new Order(Integer.parseInt(order_id),shop_uid,Integer.parseInt(user_id),shop_name,shop_price,Integer.parseInt(comment_state),order_time);
+//                                     GetOrderList.getList().add(order);
+//
+//                                    //  Toast.makeText(getContext(),shop_name,Toast.LENGTH_LONG).show();
+//
+//
+//                                }
+//                                Intent intent = new Intent(getActivity(),ActMyOrder.class);
+//                                startActivity(intent);
+//
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                        }
+//                    }, new Response.ErrorListener() {
+//                        @Override
+//                        public void onErrorResponse(VolleyError volleyError) {
+//
+//                        }
+//                    });
+//                    request.setTag("myFavorite");
+//                    mQueue.add(request);
+//                    mQueue.start();
 
 
 
@@ -201,62 +205,66 @@ public class ActPersonal extends Fragment {
                     startActivity(intent);
                 }else{
                     //已登录的正常逻辑
-
-                    RequestQueue mQueue = Volley.newRequestQueue(getActivity());
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                        jsonObject.put("user_id", GetUserInfo.getUserId());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Config.MYFAVORITE_URL, jsonObject, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject jsonObject) {
-                            try {
-                                String state_of_json = jsonObject.getString("state");
-                                GetFavoriteList.getList().clear();
-                                JSONArray jsonArray = new JSONArray(state_of_json);
-                                for(int i = 0 ; i < jsonArray.length(); i++) {
-                                    JSONObject jsonObject_1  = new JSONObject();
-                                    jsonObject_1 = jsonArray.getJSONObject(i);
-                                    String shop_uid = jsonObject_1.getString("shop_uid");
-                                    String shop_name = jsonObject_1.getString("shop_name");
-                                    String shop_image = jsonObject_1.getString("shop_image");
-                                    String shop_price = jsonObject_1.getString("shop_price");
-                                    String shop_comment = jsonObject_1.getString("shop_comment");
-                                    String shop_address = jsonObject_1.getString("shop_address");
-                                    String shop_phone = jsonObject_1.getString("shop_phone");
-                                    Double shop_latitude = jsonObject_1.getDouble("shop_latitude");
-                                    Double shop_longitude = jsonObject_1.getDouble("shop_longitude");
-                                    String shop_city = jsonObject_1.getString("shop_city");
-                                    String shop_keyword = jsonObject_1.getString("shop_keyword");
-                                    LatLng latLng = new LatLng(shop_latitude,shop_longitude);
-                                    String distance = DistanceUtil.getDistance(DistanceUtil.getLatlng(),latLng);
-                                    Shop shop = new Shop(shop_uid,shop_name,shop_image,distance,shop_address,shop_price,shop_comment,shop_phone,latLng,shop_city,shop_keyword);
-                                    GetFavoriteList.getList().add(shop);
-
-                                  //  Toast.makeText(getContext(),shop_name,Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getActivity(),ActFavorite.class);
+                    startActivity(intent);
 
 
-                                }
-                                    Intent intent = new Intent(getActivity(),ActFavorite.class);
-                                    startActivity(intent);
 
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-
-                        }
-                    });
-                    request.setTag("myFavorite");
-                    mQueue.add(request);
-                    mQueue.start();
+//                    RequestQueue mQueue = Volley.newRequestQueue(getActivity());
+//                    JSONObject jsonObject = new JSONObject();
+//                    try {
+//                        jsonObject.put("user_id", GetUserInfo.getUserId());
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Config.MYFAVORITE_URL, jsonObject, new Response.Listener<JSONObject>() {
+//                        @Override
+//                        public void onResponse(JSONObject jsonObject) {
+//                            try {
+//                                String state_of_json = jsonObject.getString("state");
+//                                GetFavoriteList.getList().clear();
+//                                JSONArray jsonArray = new JSONArray(state_of_json);
+//                                for(int i = 0 ; i < jsonArray.length(); i++) {
+//                                    JSONObject jsonObject_1  = new JSONObject();
+//                                    jsonObject_1 = jsonArray.getJSONObject(i);
+//                                    String shop_uid = jsonObject_1.getString("shop_uid");
+//                                    String shop_name = jsonObject_1.getString("shop_name");
+//                                    String shop_image = jsonObject_1.getString("shop_image");
+//                                    String shop_price = jsonObject_1.getString("shop_price");
+//                                    String shop_comment = jsonObject_1.getString("shop_comment");
+//                                    String shop_address = jsonObject_1.getString("shop_address");
+//                                    String shop_phone = jsonObject_1.getString("shop_phone");
+//                                    Double shop_latitude = jsonObject_1.getDouble("shop_latitude");
+//                                    Double shop_longitude = jsonObject_1.getDouble("shop_longitude");
+//                                    String shop_city = jsonObject_1.getString("shop_city");
+//                                    String shop_keyword = jsonObject_1.getString("shop_keyword");
+//                                    LatLng latLng = new LatLng(shop_latitude,shop_longitude);
+//                                    String distance = DistanceUtil.getDistance(DistanceUtil.getLatlng(),latLng);
+//                                    Shop shop = new Shop(shop_uid,shop_name,shop_image,distance,shop_address,shop_price,shop_comment,shop_phone,latLng,shop_city,shop_keyword);
+//                                    GetFavoriteList.getList().add(shop);
+//
+//                                  //  Toast.makeText(getContext(),shop_name,Toast.LENGTH_LONG).show();
+//
+//
+//                                }
+//                                    Intent intent = new Intent(getActivity(),ActFavorite.class);
+//                                    startActivity(intent);
+//
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                        }
+//                    }, new Response.ErrorListener() {
+//                        @Override
+//                        public void onErrorResponse(VolleyError volleyError) {
+//
+//                        }
+//                    });
+//                    request.setTag("myFavorite");
+//                    mQueue.add(request);
+//                    mQueue.start();
 
 
 

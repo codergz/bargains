@@ -17,8 +17,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import com.example.gao.bargains.Config;
 import com.example.gao.bargains.R;
+import com.example.gao.bargains.SysApplication;
 import com.example.gao.bargains.utils.GetUserInfo;
 
 import com.example.gao.bargains.utils.LoginStateUtil;
@@ -55,6 +57,8 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
+
+        SysApplication.getInstance().addActivity(this);
 
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnRegister = (Button) findViewById(R.id.btn_register);
