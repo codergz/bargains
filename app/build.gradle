@@ -35,4 +35,5 @@ dependencies {
     compile files('libs/volley.jar')
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/pinyin4android1.0.jar')
+    compile files('libs/glide-3.7.0.jar')
 }

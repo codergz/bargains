@@ -2,35 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_register"
+
     >
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="130dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="38dp"
+        android:gravity="center"
+
         >
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
             <TextView
-                android:layout_marginLeft="55dp"
+                android:layout_marginLeft="45dp"
+                android:textSize="18sp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="账户："
+                android:text="账户"
                 />
             <EditText
                 android:id="@+id/etRegAccount"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+
+                android:layout_height="30dp"
                 android:maxLines="1"
-                android:hint="请在此输入注册的账户"
+                android:background="@drawable/edit_bg"
                 />
 
 
@@ -39,41 +46,52 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
             <TextView
-                android:layout_marginLeft="55dp"
+                android:layout_marginLeft="45dp"
+                android:textSize="18sp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="密码："
+                android:text="密码"
                 />
             <EditText
                 android:id="@+id/etRegPassword"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+
+                android:layout_height="30dp"
                 android:maxLines="1"
-                android:hint="请在此输入登录密码"
-                android:inputType="textPassword" />
+                android:background="@drawable/edit_bg"
+                android:inputType="textPassword"
+
+                />
 
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
             <TextView
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="45dp"
+                android:textSize="18sp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="确认密码："
+                android:text="确认密码"
                 />
 
             <EditText
                 android:id="@+id/etSurePassword"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_height="30dp"
                 android:maxLines="1"
-                android:hint="请与上栏密码保持一致"
+                android:background="@drawable/edit_bg"
                 android:inputType="textPassword" />
 
 
@@ -81,38 +99,46 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
             <TextView
-                android:layout_marginLeft="55dp"
+                android:layout_marginLeft="45dp"
+                android:textSize="18sp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="姓名："
+                android:text="姓名"
                 />
             <EditText
                 android:id="@+id/etName"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_height="30dp"
                 android:maxLines="1"
-                android:hint="请在此输入姓名"
+                android:background="@drawable/edit_bg"
                 />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
             <TextView
-                android:layout_marginLeft="55dp"
+                android:layout_marginLeft="45dp"
+                android:textSize="18sp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="手机："
+                android:text="手机"
                 />
             <EditText
                 android:id="@+id/etPhone"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_height="30dp"
                 android:maxLines="1"
-                android:hint="请在此输入手机号"
+                android:background="@drawable/edit_bg"
                  />
 
 
@@ -131,8 +157,9 @@
 
             <Button
                 android:id="@+id/btn_reg_register"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+
                 android:text="@string/btn_register"
                 android:background="@drawable/button_login_register_style"
                 />

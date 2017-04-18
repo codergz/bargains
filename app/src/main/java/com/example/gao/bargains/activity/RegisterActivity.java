@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,8 +36,19 @@ public class RegisterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
-
+        //管理活动退出
         SysApplication.getInstance().addActivity(this);
+
+        //状态栏颜色设置
+        //状态栏颜色设置
+        Window window = getWindow();
+        //取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        //设置状态栏颜色
+        window.setStatusBarColor(getResources().getColor(R.color.common_white));
+
 
         btn_register = (Button)findViewById(R.id.btn_reg_register);
         etRegAccount = (EditText)findViewById(R.id.etRegAccount);

@@ -22,7 +22,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="G39BPgtnMtpGBFNHNhPnIwIbuZQmpsyK" />
+            android:value="uAFUO6CNL2gXt7FBVFoPM0LMTctsP0Wl" />
         <activity android:name=".activity.MainActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN"/>
@@ -38,6 +38,7 @@
         <activity android:name=".activity.ActMyOrder"/>
         <activity android:name=".activity.ActOrderDetailPage"/>
         <activity android:name=".activity.ActAddComment"/>
+        <activity android:name=".activity.ActSearchCityKeyword"/>
     </application>
 
 </manifest>

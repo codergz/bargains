@@ -5,6 +5,9 @@
     android:background="@color/common_bg_grey"
     >
 
+
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,13 +43,14 @@
 
     </RelativeLayout>
     <ImageView
-        android:layout_width="wrap_content"
+        android:id="@+id/image"
+        android:layout_width="match_parent"
         android:layout_height="180dp"
         android:src="@drawable/picture_demo"
-        android:background="@color/common_title"
         android:scaleType="fitXY"
         />
-<RelativeLayout
+
+    <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/common_white"

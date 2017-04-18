@@ -36,7 +36,8 @@ import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.example.gao.bargains.Config;
 import com.example.gao.bargains.R;
-import com.example.gao.bargains.adapter.MyAdapter;
+
+import com.example.gao.bargains.adapter.ShopAdapter;
 import com.example.gao.bargains.data.Shop;
 import com.example.gao.bargains.utils.DistanceUtil;
 import com.example.gao.bargains.utils.GetFavoriteList;
@@ -170,7 +171,8 @@ public class ActHomePage extends Fragment {
 
 
                             }
-                            MyAdapter myAdapter = new MyAdapter(getContext(), list);
+
+                            ShopAdapter myAdapter = new ShopAdapter(getContext(), list);
                             listView.setAdapter(myAdapter);
 
                         } catch (Exception e) {
@@ -194,7 +196,7 @@ public class ActHomePage extends Fragment {
 
 //                //POI检索实例创建
 //                mPoiSearch = PoiSearch.newInstance();
-
+//
 //                //创建POI检索监听者
 //                OnGetPoiSearchResultListener poiListener = new OnGetPoiSearchResultListener(){
 //                    public void onGetPoiResult(PoiResult result){
@@ -231,14 +233,14 @@ public class ActHomePage extends Fragment {
 //                                x++;
 //
 //
-//                                list.add(new Shop(result.getUid(),result.getName(),result.getImageNum(),DistanceUtil.getDistance(DistanceUtil.getLatlng(),result.getLocation()),result.getAddress(),Double.toString(result.getPrice()),Integer.toString(result.getCommentNum()),result.getTelephone(),result.getLocation(),"西安","美食"));
+//                                list.add(new Shop(result.getUid(),result.getName(),"111",DistanceUtil.getDistance(DistanceUtil.getLatlng(),result.getLocation()),result.getAddress(),Double.toString(result.getPrice()),Integer.toString(result.getCommentNum()),result.getTelephone(),result.getLocation(),"西安","美食"));
 //
 //
 //
 //
 //                            if(x == 10){
-//                                MyAdapter myAdapter = new MyAdapter(getContext(), list);
-//                                listView.setAdapter(myAdapter);
+//                                ShopAdapter myAdapter = new ShopAdapter(getContext(), list);
+//                               listView.setAdapter(myAdapter);
 //                                x=0;
 //                            }
 //
@@ -261,7 +263,7 @@ public class ActHomePage extends Fragment {
 //                        .keyword(shop_keyword)
 //                        .pageNum(10));
 
-
+//
 
             }
         });
@@ -270,7 +272,7 @@ public class ActHomePage extends Fragment {
         btnDestory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyAdapter myAdapter = new MyAdapter(getContext(), list);
+                ShopAdapter myAdapter = new ShopAdapter(getContext(), list);
                 listView.setAdapter(myAdapter);
                 mPoiSearch.destroy();
 

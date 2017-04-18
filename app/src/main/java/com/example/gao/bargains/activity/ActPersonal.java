@@ -96,7 +96,12 @@ public class ActPersonal extends Fragment {
                     startActivity(intent);
                 }else{
                     //已登录的正常逻辑
-                    Toast.makeText(getContext(),"biubiubiu",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(),"biubiubiu",Toast.LENGTH_LONG).show();
+
+                    MainActivity activity = (MainActivity)getActivity();
+                    Intent intent = new Intent(activity,ActSearchCityKeyword.class);
+                    startActivity(intent);
+
                 }
             }
         });

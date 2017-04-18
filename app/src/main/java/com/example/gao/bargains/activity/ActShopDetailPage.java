@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.baidu.mapapi.model.LatLng;
 
+import com.bumptech.glide.Glide;
 import com.example.gao.bargains.Config;
 import com.example.gao.bargains.R;
 import com.example.gao.bargains.SysApplication;
@@ -47,6 +49,7 @@ import java.util.List;
 
 public class ActShopDetailPage extends Activity {
 
+    ImageView shop_detail_image_show;
     TextView shop_detail_name,shop_detail_price,shop_detail_address;
     Button shop_detail_backward,shop_detail_favorite,shop_detail_order,shop_detail_location,shop_detail_phone,getComment;
     String shop_name,shop_price,shop_address,shop_phone,state_of_json;
@@ -74,6 +77,7 @@ public class ActShopDetailPage extends Activity {
         //设置状态栏颜色
         window.setStatusBarColor(getResources().getColor(R.color.common_title));
 
+        shop_detail_image_show = (ImageView) findViewById(R.id.image);
         shop_detail_name = (TextView) findViewById(R.id.shop_detail_name);
         shop_detail_price = (TextView) findViewById(R.id.shop_detail_price);
         shop_detail_address = (TextView) findViewById(R.id.shop_detail_address);
@@ -101,6 +105,15 @@ public class ActShopDetailPage extends Activity {
         final Double latitude = bundle.getDouble("latitude");
         final Double longitude = bundle.getDouble("longitude");
 
+        String url = Config.GETPICTURE_URL + shop_image;
+
+        Glide.with(ActShopDetailPage.this)
+                .load(url)
+                .centerCrop()
+                .placeholder(R.drawable.loading)
+                .crossFade()
+                .error(R.drawable.error)
+                .into(shop_detail_image_show);
         shop_detail_name.setText(shop_name);
         shop_detail_price.setText(shop_price);
         shop_detail_address.setText(shop_address);

@@ -22,7 +22,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.example.gao.bargains.Config;
 import com.example.gao.bargains.R;
 import com.example.gao.bargains.SysApplication;
-import com.example.gao.bargains.adapter.MyAdapter;
+import com.example.gao.bargains.adapter.ShopAdapter;
 import com.example.gao.bargains.data.Shop;
 import com.example.gao.bargains.utils.DistanceUtil;
 import com.example.gao.bargains.utils.GetFavoriteList;
@@ -104,7 +104,8 @@ public class ActFavorite extends Activity {
 
 
                     }
-                    MyAdapter myAdapter = new MyAdapter(ActFavorite.this, list);
+
+                    ShopAdapter myAdapter = new ShopAdapter(ActFavorite.this, list);
                     listView.setAdapter(myAdapter);
 
 
@@ -222,8 +223,6 @@ public class ActFavorite extends Activity {
         });
 
 
-//        MyAdapter myAdapter = new MyAdapter(ActFavorite.this, list);
-//        listView.setAdapter(myAdapter);
 
     }
 
