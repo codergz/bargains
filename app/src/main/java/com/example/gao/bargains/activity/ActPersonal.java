@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ public class ActPersonal extends Fragment {
     protected TextView per_favorite;
     protected Button per_log_out;
 
+    private LinearLayout user_info;
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -80,6 +82,8 @@ public class ActPersonal extends Fragment {
          per_order = (TextView) mMainView.findViewById(R.id.per_order);
         //收藏
          per_favorite = (TextView) mMainView.findViewById(R.id.per_favorite);
+
+        user_info = (LinearLayout) mMainView.findViewById(R.id.per_user_info);
 
         per_log_out = (Button) mMainView.findViewById(R.id.per_log_out);
 
@@ -106,6 +110,24 @@ public class ActPersonal extends Fragment {
 
         //用户名点击事件逻辑
         per_username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int x = LoginStateUtil.getLoginState();
+                //未登陆则跳转到登陆界面
+                if(x == 0){
+                    MainActivity activity = (MainActivity)getActivity();
+                    Intent intent = new Intent(activity,LoginActivity.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(getActivity(),ActUserInfo.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        //我的信息点击事件逻辑
+        user_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

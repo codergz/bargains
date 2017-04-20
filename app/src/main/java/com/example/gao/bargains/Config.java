@@ -40,7 +40,7 @@ public class Config {
 
     public static final String GETADVERTISEMENT_URL = NET_ADDRESS + "/bargains/GetAdvertisement";//删除某个订单的URL
 
-
+    public static  int COUNT = 0;
 
 
 }

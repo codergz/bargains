@@ -11,6 +11,7 @@ import android.view.WindowManager;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.MapView;
+import com.example.gao.bargains.Config;
 import com.example.gao.bargains.R;
 import com.example.gao.bargains.SysApplication;
 import com.example.gao.bargains.ui.IndicatorFragmentActivity;
@@ -25,6 +26,8 @@ public class MainActivity extends IndicatorFragmentActivity {
     public static final int FRAGMENT_ONE = 0;
     public static final int FRAGMENT_TWO = 1;
     public static final int FRAGMENT_THREE = 2;
+
+
 
     protected void onCreate(Bundle savedInstanceState){
 
@@ -48,14 +51,20 @@ public class MainActivity extends IndicatorFragmentActivity {
 
     @Override
    protected int supplyTabs(List<TabInfo> tabs) {
+
         tabs.add(new TabInfo(FRAGMENT_ONE, getString(R.string.fragment_homepage),
                 ActHomePage.class));
         tabs.add(new TabInfo(FRAGMENT_TWO, getString(R.string.fragment_nearby),
                 ActNearby.class));
         tabs.add(new TabInfo(FRAGMENT_THREE, getString(R.string.fragment_personal),
                 ActPersonal.class));
+        if(Config.COUNT == 0) {
+            Config.COUNT = 1;
+            return FRAGMENT_ONE;
 
-        return FRAGMENT_THREE;
+        }else{
+            return FRAGMENT_THREE;
+        }
     }
 
 

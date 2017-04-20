@@ -29,4 +29,5 @@
     <color name="page_viewer_margin_color">#ffffff</color>
     <color name="common_main">#7fffd4</color>
     <color name="common_bg_grey">#cccccc</color>
+    <color name="common_bg_grey2">#F7FAF9</color>
 </resources>

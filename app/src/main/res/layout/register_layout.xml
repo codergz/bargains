@@ -161,7 +161,7 @@
                 android:layout_height="40dp"
 
                 android:text="@string/btn_register"
-                android:background="@drawable/button_login_register_style"
+                android:background="@drawable/btn_personal_style"
                 />
 
         </LinearLayout>
