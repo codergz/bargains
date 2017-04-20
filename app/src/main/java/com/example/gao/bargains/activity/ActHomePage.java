@@ -12,9 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +76,12 @@ public class ActHomePage extends Fragment {
     private String provider;
     public List<Shop> list;
 
+    private List<String> list_city;
+    private Spinner spinner_city;
+    private String shop_city = "西安";
+    private ArrayAdapter<String> adapter;
+    private String shop_keyword = "美食";
+
     public int x = 0;
 
     @Override
@@ -83,54 +92,44 @@ public class ActHomePage extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mMainView = inflater.inflate(R.layout.homepage_layout, container, false);
-        search_city = (EditText) mMainView.findViewById(R.id.etSearchCity);
-        search_keyword = (EditText) mMainView.findViewById(R.id.etSearchKeyword);
-        btnSearch = (Button) mMainView.findViewById(R.id.btn_search);
-        btnDestory = (Button) mMainView.findViewById(R.id.btn_destory);
-        listView = (ListView) mMainView.findViewById(R.id.listview);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        search_city = (EditText) mMainView.findViewById(R.id.etSearchCity);
+//        search_keyword = (EditText) mMainView.findViewById(R.id.etSearchKeyword);
+//        btnSearch = (Button) mMainView.findViewById(R.id.btn_search);
+//        btnDestory = (Button) mMainView.findViewById(R.id.btn_destory);
+
+        //分类LinearLayout获得布局
+        LinearLayout linearLayout_meishi = (LinearLayout) mMainView.findViewById(R.id.linear_meishi);
+        LinearLayout linearLayout_jiudian = (LinearLayout) mMainView.findViewById(R.id.linear_jiudian);
+        LinearLayout linearLayout_dianying = (LinearLayout) mMainView.findViewById(R.id.linear_dianying);
+        LinearLayout linearLayout_waimai = (LinearLayout) mMainView.findViewById(R.id.linear_waimai);
+        LinearLayout linearLayout_ktv = (LinearLayout) mMainView.findViewById(R.id.linear_ktv);
+        LinearLayout linearLayout_jipiao = (LinearLayout) mMainView.findViewById(R.id.linear_jipiao);
+        LinearLayout linearLayout_lvxing = (LinearLayout) mMainView.findViewById(R.id.linear_lvxing);
+        LinearLayout linearLayout_shenghuo = (LinearLayout) mMainView.findViewById(R.id.linear_shenghuo);
+
+
+        spinner_city = (Spinner) mMainView.findViewById(R.id.spinner);
+        list_city = new ArrayList<>();
+        list_city.add("西安");
+        list_city.add("深圳");
+        list_city.add("北京");
+
+        //2.定义适配器
+        adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,list_city);
+
+        //3.adapter设置下拉样式
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //4.spinner加载适配器
+        spinner_city.setAdapter(adapter);
+
+        //5.spinner设置监听器
+        spinner_city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Shop shop = list.get(position);
-                String shop_uid = shop.getUid();
-                String shop_name = shop.getShop_name();
-                String shop_image = shop.getImageId();
-                String price = shop.getPrice();
-                String comment = shop.getCommentNum();
-                String address = shop.getAddress();
-                String phoneNum = shop.getPhoneNum();
-                LatLng latLng = shop.getLatLng();
-                Double latitude = latLng.latitude;
-                Double longitude = latLng.longitude;
-                String shop_city = shop.getShop_city();
-                String shop_keyword = shop.getShop_keyword();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                shop_city = adapter.getItem(position);
 
-//                Toast.makeText(getContext(),shop.getAddress(),Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getActivity(),ActShopDetailPage.class);
-                intent.putExtra("shop_uid",shop_uid);
-                intent.putExtra("shop_name",shop_name);
-                intent.putExtra("shop_image",shop_image);
-
-                intent.putExtra("price",price);
-                intent.putExtra("comment",comment);
-                intent.putExtra("address",address);
-                intent.putExtra("phoneNum",phoneNum);
-                intent.putExtra("latitude",latitude);
-                intent.putExtra("longitude",longitude);
-                intent.putExtra("shop_city", shop_city);
-                intent.putExtra("shop_keyword", shop_keyword);
-
-                startActivity(intent);
-            }
-        });
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String shop_city = search_city.getText().toString();
-                String shop_keyword = search_keyword.getText().toString();
                 list = new ArrayList<Shop>();
-
-
                 //利用自己搭建的数据库获得数据
                 RequestQueue mQueue = Volley.newRequestQueue(getActivity());
                 JSONObject jsonObject = new JSONObject();
@@ -141,7 +140,7 @@ public class ActHomePage extends Fragment {
                     e.printStackTrace();
                 }
 
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Config.SEARCHCITYKEYWORD_URL, jsonObject, new Response.Listener<JSONObject>() {
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Config.GETADVERTISEMENT_URL, jsonObject, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
                         try {
@@ -186,14 +185,277 @@ public class ActHomePage extends Fragment {
 
                     }
                 });
-                request.setTag("searchcitykeyword");
+                request.setTag("homepage");
+                mQueue.add(request);
+                mQueue.start();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //分类监听
+        linearLayout_meishi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity activity = (MainActivity)getActivity();
+                Intent intent = new Intent(activity,ActSearchCityKeyword.class);
+                intent.putExtra("shop_city",shop_city);
+                intent.putExtra("shop_keyword","美食");
+                startActivity(intent);
+            }
+        });
+        linearLayout_jiudian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity activity = (MainActivity)getActivity();
+                Intent intent = new Intent(activity,ActSearchCityKeyword.class);
+                intent.putExtra("shop_city",shop_city);
+                intent.putExtra("shop_keyword","酒店");
+                startActivity(intent);
+            }
+        });
+        linearLayout_dianying.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity activity = (MainActivity)getActivity();
+                Intent intent = new Intent(activity,ActSearchCityKeyword.class);
+                intent.putExtra("shop_city",shop_city);
+                intent.putExtra("shop_keyword","电影");
+                startActivity(intent);
+            }
+        });
+        linearLayout_waimai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity activity = (MainActivity)getActivity();
+                Intent intent = new Intent(activity,ActSearchCityKeyword.class);
+                intent.putExtra("shop_city",shop_city);
+                intent.putExtra("shop_keyword","外卖");
+                startActivity(intent);
+            }
+        });
+        linearLayout_ktv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity activity = (MainActivity)getActivity();
+                Intent intent = new Intent(activity,ActSearchCityKeyword.class);
+                intent.putExtra("shop_city",shop_city);
+                intent.putExtra("shop_keyword","KTV");
+                startActivity(intent);
+            }
+        });
+        linearLayout_jipiao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity activity = (MainActivity)getActivity();
+                Intent intent = new Intent(activity,ActSearchCityKeyword.class);
+                intent.putExtra("shop_city",shop_city);
+                intent.putExtra("shop_keyword","机票");
+                startActivity(intent);
+            }
+        });
+        linearLayout_lvxing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity activity = (MainActivity)getActivity();
+                Intent intent = new Intent(activity,ActSearchCityKeyword.class);
+                intent.putExtra("shop_city",shop_city);
+                intent.putExtra("shop_keyword","旅行");
+                startActivity(intent);
+            }
+        });
+        linearLayout_shenghuo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity activity = (MainActivity)getActivity();
+                Intent intent = new Intent(activity,ActSearchCityKeyword.class);
+                intent.putExtra("shop_city",shop_city);
+                intent.putExtra("shop_keyword","生活");
+                startActivity(intent);
+            }
+        });
+
+
+
+
+        listView = (ListView) mMainView.findViewById(R.id.listview);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Shop shop = list.get(position);
+                String shop_uid = shop.getUid();
+                String shop_name = shop.getShop_name();
+                String shop_image = shop.getImageId();
+                String price = shop.getPrice();
+                String comment = shop.getCommentNum();
+                String address = shop.getAddress();
+                String phoneNum = shop.getPhoneNum();
+                LatLng latLng = shop.getLatLng();
+                Double latitude = latLng.latitude;
+                Double longitude = latLng.longitude;
+                String shop_city = shop.getShop_city();
+                String shop_keyword = shop.getShop_keyword();
+
+//                Toast.makeText(getContext(),shop.getAddress(),Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(),ActShopDetailPage.class);
+                intent.putExtra("shop_uid",shop_uid);
+                intent.putExtra("shop_name",shop_name);
+                intent.putExtra("shop_image",shop_image);
+
+                intent.putExtra("price",price);
+                intent.putExtra("comment",comment);
+                intent.putExtra("address",address);
+                intent.putExtra("phoneNum",phoneNum);
+                intent.putExtra("latitude",latitude);
+                intent.putExtra("longitude",longitude);
+                intent.putExtra("shop_city", shop_city);
+                intent.putExtra("shop_keyword", shop_keyword);
+
+                startActivity(intent);
+            }
+        });
+
+        //广告通信
+
+                 list = new ArrayList<Shop>();
+                //利用自己搭建的数据库获得数据
+                RequestQueue mQueue = Volley.newRequestQueue(getActivity());
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("shop_city", "西安");
+                    jsonObject.put("shop_keyword", shop_keyword);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Config.GETADVERTISEMENT_URL, jsonObject, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        try {
+                            String state_of_json = jsonObject.getString("state");
+                            GetFavoriteList.getList().clear();
+                            JSONArray jsonArray = new JSONArray(state_of_json);
+                            for(int i = 0 ; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject_1  = new JSONObject();
+                                jsonObject_1 = jsonArray.getJSONObject(i);
+                                String shop_uid = jsonObject_1.getString("shop_uid");
+                                String shop_name = jsonObject_1.getString("shop_name");
+                                String shop_image = jsonObject_1.getString("shop_image");
+                                String shop_price = jsonObject_1.getString("shop_price");
+                                String shop_comment = jsonObject_1.getString("shop_comment");
+                                String shop_address = jsonObject_1.getString("shop_address");
+                                String shop_phone = jsonObject_1.getString("shop_phone");
+                                Double shop_latitude = jsonObject_1.getDouble("shop_latitude");
+                                Double shop_longitude = jsonObject_1.getDouble("shop_longitude");
+                                String shop_city = jsonObject_1.getString("shop_city");
+                                String shop_keyword = jsonObject_1.getString("shop_keyword");
+                                LatLng latLng = new LatLng(shop_latitude,shop_longitude);
+                                String distance = DistanceUtil.getDistance(DistanceUtil.getLatlng(),latLng);
+                                Shop shop = new Shop(shop_uid,shop_name,shop_image,distance,shop_address,shop_price,shop_comment,shop_phone,latLng,shop_city,shop_keyword);
+                                list.add(shop);
+
+                                //  Toast.makeText(getContext(),shop_name,Toast.LENGTH_LONG).show();
+
+
+                            }
+
+                            ShopAdapter myAdapter = new ShopAdapter(getContext(), list);
+                            listView.setAdapter(myAdapter);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+                    }
+                });
+                request.setTag("homepage");
                 mQueue.add(request);
                 mQueue.start();
 
 
 
+
+//        btnSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String shop_city = search_city.getText().toString();
+//                String shop_keyword = search_keyword.getText().toString();
+//                list = new ArrayList<Shop>();
+//
+//
+//                //利用自己搭建的数据库获得数据
+//                RequestQueue mQueue = Volley.newRequestQueue(getActivity());
+//                JSONObject jsonObject = new JSONObject();
+//                try {
+//                    jsonObject.put("shop_city", shop_city);
+//                    jsonObject.put("shop_keyword", shop_keyword);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Config.SEARCHCITYKEYWORD_URL, jsonObject, new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject jsonObject) {
+//                        try {
+//                            String state_of_json = jsonObject.getString("state");
+//                            GetFavoriteList.getList().clear();
+//                            JSONArray jsonArray = new JSONArray(state_of_json);
+//                            for(int i = 0 ; i < jsonArray.length(); i++) {
+//                                JSONObject jsonObject_1  = new JSONObject();
+//                                jsonObject_1 = jsonArray.getJSONObject(i);
+//                                String shop_uid = jsonObject_1.getString("shop_uid");
+//                                String shop_name = jsonObject_1.getString("shop_name");
+//                                String shop_image = jsonObject_1.getString("shop_image");
+//                                String shop_price = jsonObject_1.getString("shop_price");
+//                                String shop_comment = jsonObject_1.getString("shop_comment");
+//                                String shop_address = jsonObject_1.getString("shop_address");
+//                                String shop_phone = jsonObject_1.getString("shop_phone");
+//                                Double shop_latitude = jsonObject_1.getDouble("shop_latitude");
+//                                Double shop_longitude = jsonObject_1.getDouble("shop_longitude");
+//                                String shop_city = jsonObject_1.getString("shop_city");
+//                                String shop_keyword = jsonObject_1.getString("shop_keyword");
+//                                LatLng latLng = new LatLng(shop_latitude,shop_longitude);
+//                                String distance = DistanceUtil.getDistance(DistanceUtil.getLatlng(),latLng);
+//                                Shop shop = new Shop(shop_uid,shop_name,shop_image,distance,shop_address,shop_price,shop_comment,shop_phone,latLng,shop_city,shop_keyword);
+//                                list.add(shop);
+//
+//                                //  Toast.makeText(getContext(),shop_name,Toast.LENGTH_LONG).show();
+//
+//
+//                            }
+//
+//                            ShopAdapter myAdapter = new ShopAdapter(getContext(), list);
+//                            listView.setAdapter(myAdapter);
+//
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                }, new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError volleyError) {
+//
+//                    }
+//                });
+//                request.setTag("homepage");
+//                mQueue.add(request);
+//                mQueue.start();
+
+
+
                 //****************利用百度地图api获得数据方式*****************8
 
+        //开始
 //                //POI检索实例创建
 //                mPoiSearch = PoiSearch.newInstance();
 //
@@ -263,24 +525,26 @@ public class ActHomePage extends Fragment {
 //                        .keyword(shop_keyword)
 //                        .pageNum(10));
 
+//    终止
+
+//            }
+//        });
+
+
+//        btnDestory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ShopAdapter myAdapter = new ShopAdapter(getContext(), list);
+//                listView.setAdapter(myAdapter);
+//                mPoiSearch.destroy();
 //
-
-            }
-        });
-
-
-        btnDestory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShopAdapter myAdapter = new ShopAdapter(getContext(), list);
-                listView.setAdapter(myAdapter);
-                mPoiSearch.destroy();
-
-            }
-        });
+//            }
+//        });
 
         return mMainView;
     }
+
+
 
 
 }

@@ -10,7 +10,7 @@ public class GetUserInfo {
     public static String user_account = "请点击登录";
 
     public static String user_password = "未登录";
-    public static String user_name = "未登录";
+    public static String user_name = "请点击登录";
     public static String user_phone = "未登陆";
     public static String login_state = "0";
     public static String user_address = "未登陆";

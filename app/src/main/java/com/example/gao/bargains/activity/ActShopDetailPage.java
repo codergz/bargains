@@ -50,15 +50,16 @@ import java.util.List;
 public class ActShopDetailPage extends Activity {
 
     ImageView shop_detail_image_show;
-    TextView shop_detail_name,shop_detail_price,shop_detail_address;
-    Button shop_detail_backward,shop_detail_favorite,shop_detail_order,shop_detail_location,shop_detail_phone,getComment;
-    String shop_name,shop_price,shop_address,shop_phone,state_of_json;
-    String shop_uid,shop_comment,shop_image,shop_city,shop_keyword;
+    TextView shop_detail_name, shop_detail_price, shop_detail_address;
+    Button shop_detail_backward, shop_detail_favorite, shop_detail_order, shop_detail_location, shop_detail_phone, getComment;
+    String shop_name, shop_price, shop_address, shop_phone, state_of_json,state_of_json_drawable;
+    String shop_uid, shop_comment, shop_image, shop_city, shop_keyword;
 
+    Double latitude,longitude;
 
     public ListView listView;
     private String provider;
-    private List<Comment> list =new ArrayList<>();
+    private List<Comment> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,6 @@ public class ActShopDetailPage extends Activity {
         setContentView(R.layout.shop_detail_page);
 
         SysApplication.getInstance().addActivity(this);
-
 
 
         Window window = getWindow();
@@ -83,8 +83,8 @@ public class ActShopDetailPage extends Activity {
         shop_detail_address = (TextView) findViewById(R.id.shop_detail_address);
 
 
-        shop_detail_backward =  (Button) findViewById(R.id.shop_detail_backward);
-        shop_detail_favorite =  (Button) findViewById(R.id.shop_detail_favorite);
+        shop_detail_backward = (Button) findViewById(R.id.shop_detail_backward);
+        shop_detail_favorite = (Button) findViewById(R.id.shop_detail_favorite);
         shop_detail_order = (Button) findViewById(R.id.order);
         shop_detail_location = (Button) findViewById(R.id.location);
         shop_detail_phone = (Button) findViewById(R.id.phone);
@@ -102,8 +102,9 @@ public class ActShopDetailPage extends Activity {
         shop_phone = bundle.getString("phoneNum");
         shop_city = bundle.getString("shop_city");
         shop_keyword = bundle.getString("shop_keyword");
-        final Double latitude = bundle.getDouble("latitude");
-        final Double longitude = bundle.getDouble("longitude");
+        latitude = bundle.getDouble("latitude");
+        longitude = bundle.getDouble("longitude");
+
 
         String url = Config.GETPICTURE_URL + shop_image;
 
@@ -129,53 +130,49 @@ public class ActShopDetailPage extends Activity {
             e.printStackTrace();
         }
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Config.GETCOMMENT_URL, jsonObject, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonObject) {
-                        try {
-                            String state_of_json = jsonObject.getString("state");
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                try {
+                    String state_of_json = jsonObject.getString("state");
 
-                            JSONArray jsonArray = new JSONArray(state_of_json);
-                            for(int i = 0 ; i < jsonArray.length(); i++) {
-                                JSONObject jsonObject_1  = new JSONObject();
-                                jsonObject_1 = jsonArray.getJSONObject(i);
-                                String shop_uid = jsonObject_1.getString("shop_uid");
-                                String user_id = jsonObject_1.getString("user_id");
-                                String order_id = jsonObject_1.getString("order_id");
-                                String user_name = jsonObject_1.getString("user_name");
-                                String comment_content = jsonObject_1.getString("comment_content");
-                                String comment_grade = jsonObject_1.getString("comment_grade");
-                                String comment_time = jsonObject_1.getString("comment_time");
-                                Comment comment = new Comment(shop_uid,Integer.parseInt(user_id),Integer.parseInt(order_id),user_name,comment_content,comment_grade,comment_time);
+                    JSONArray jsonArray = new JSONArray(state_of_json);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject_1 = new JSONObject();
+                        jsonObject_1 = jsonArray.getJSONObject(i);
+                        String shop_uid = jsonObject_1.getString("shop_uid");
+                        String user_id = jsonObject_1.getString("user_id");
+                        String order_id = jsonObject_1.getString("order_id");
+                        String user_name = jsonObject_1.getString("user_name");
+                        String comment_content = jsonObject_1.getString("comment_content");
+                        String comment_grade = jsonObject_1.getString("comment_grade");
+                        String comment_time = jsonObject_1.getString("comment_time");
+                        Comment comment = new Comment(shop_uid, Integer.parseInt(user_id), Integer.parseInt(order_id), user_name, comment_content, comment_grade, comment_time);
 
-                                list.add(comment);
+                        list.add(comment);
 
-                                 // Toast.makeText(ActShopDetailPage.this,shop_name,Toast.LENGTH_LONG).show();
+                        // Toast.makeText(ActShopDetailPage.this,shop_name,Toast.LENGTH_LONG).show();
 
-
-                            }
-
-                            CommentAdapter myAdapter = new CommentAdapter(ActShopDetailPage.this, list);
-                            listView.setAdapter(myAdapter);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
 
                     }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
 
-                    }
-                });
-                request.setTag("getComment");
-                mQueue.add(request);
-                mQueue.start();
+                    CommentAdapter myAdapter = new CommentAdapter(ActShopDetailPage.this, list);
+                    listView.setAdapter(myAdapter);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        });
+        request.setTag("getComment");
+        mQueue.add(request);
+        mQueue.start();
 //            }
 //        });
-
-
-
-
 
 
         //回退按钮点击事件
@@ -192,17 +189,17 @@ public class ActShopDetailPage extends Activity {
             @Override
             public void onClick(View v) {
                 //未登录不可以收藏
-                if(LoginStateUtil.getLoginState() == 0){
-                     Intent intent = new Intent(ActShopDetailPage.this,LoginActivity.class);
-                        startActivity(intent);
-                    }
+                if (LoginStateUtil.getLoginState() == 0) {
+                    Intent intent = new Intent(ActShopDetailPage.this, LoginActivity.class);
+                    startActivity(intent);
+                }
                 //如果登陆了，进行存储数据库操作
                 else {
 
                     RequestQueue mQueue = Volley.newRequestQueue(ActShopDetailPage.this);
                     JSONObject jsonObject = new JSONObject();
                     try {
-                        jsonObject.put("shop_uid",shop_uid);
+                        jsonObject.put("shop_uid", shop_uid);
                         jsonObject.put("user_id", GetUserInfo.getUserId());
                         jsonObject.put("shop_name", shop_name);
                         jsonObject.put("shop_image", shop_image);
@@ -223,16 +220,18 @@ public class ActShopDetailPage extends Activity {
                         @Override
                         public void onResponse(JSONObject jsonObject) {
                             try {
+
                                 state_of_json = jsonObject.getString("state");
                                 if (state_of_json.equals("success")) {
                                     //Toast.makeText(ActShopDetailPage.this, "已成功加入收藏夹", Toast.LENGTH_SHORT).show();
+
+
 
                                     new AlertDialog.Builder(ActShopDetailPage.this).setTitle("系统提示")//设置对话框标题
 
                                             .setMessage("收藏成功！")//设置显示的内容
 
-                                            .setPositiveButton("确定",new DialogInterface.OnClickListener() {//添加确定按钮
-
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {//添加确定按钮
 
 
                                                 @Override
@@ -242,21 +241,19 @@ public class ActShopDetailPage extends Activity {
                                                     // TODO Auto-generated method stub
 
 
-
                                                 }
 
                                             }).show();//在按键响应事件中显示此对话框
 
 
-
-
                                 } else if (state_of_json.equals("exist")) {
+
+
                                     new AlertDialog.Builder(ActShopDetailPage.this).setTitle("系统提示")
 
-                                            .setMessage("收藏失败！您的收藏列表里已存在该商铺")
+                                            .setMessage("已取消收藏！")
 
-                                            .setPositiveButton("确定",new DialogInterface.OnClickListener() {//添加确定按钮
-
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {//添加确定按钮
 
 
                                                 @Override
@@ -264,7 +261,6 @@ public class ActShopDetailPage extends Activity {
                                                 public void onClick(DialogInterface dialog, int which) {
 
                                                     // TODO Auto-generated method stub
-
 
 
                                                 }
@@ -299,19 +295,19 @@ public class ActShopDetailPage extends Activity {
             @Override
             public void onClick(View v) {
                 //未登录不可以下单
-                if(LoginStateUtil.getLoginState() == 0){
-                    Intent intent = new Intent(ActShopDetailPage.this,LoginActivity.class);
+                if (LoginStateUtil.getLoginState() == 0) {
+                    Intent intent = new Intent(ActShopDetailPage.this, LoginActivity.class);
                     startActivity(intent);
                 }
                 //如果登陆了，进行下单逻辑
-                else{
+                else {
                     RequestQueue mQueue = Volley.newRequestQueue(ActShopDetailPage.this);
                     JSONObject jsonObject = new JSONObject();
                     try {
-                        jsonObject.put("shop_uid",shop_uid);
+                        jsonObject.put("shop_uid", shop_uid);
                         jsonObject.put("user_id", GetUserInfo.getUserId());
-                        jsonObject.put("shop_name",shop_name);
-                        jsonObject.put("shop_price",shop_price);
+                        jsonObject.put("shop_name", shop_name);
+                        jsonObject.put("shop_price", shop_price);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -323,13 +319,12 @@ public class ActShopDetailPage extends Activity {
                                 state_of_json = jsonObject.getString("state");
                                 if (state_of_json.equals("success")) {
                                     //更改用户的钱数
-                                    GetUserInfo.setUserMoney(GetUserInfo.getUserMoney()-Double.parseDouble(shop_price));
+                                    GetUserInfo.setUserMoney(GetUserInfo.getUserMoney() - Double.parseDouble(shop_price));
                                     new AlertDialog.Builder(ActShopDetailPage.this).setTitle("系统提示")//设置对话框标题
 
                                             .setMessage("下单成功！")//设置显示的内容
 
-                                            .setPositiveButton("确定",new DialogInterface.OnClickListener() {//添加确定按钮
-
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {//添加确定按钮
 
 
                                                 @Override
@@ -339,12 +334,9 @@ public class ActShopDetailPage extends Activity {
                                                     // TODO Auto-generated method stub
 
 
-
                                                 }
 
                                             }).show();//在按键响应事件中显示此对话框
-
-
 
 
                                 } else if (state_of_json.equals("not_enough")) {
@@ -352,8 +344,7 @@ public class ActShopDetailPage extends Activity {
 
                                             .setMessage("下单失败！您的余额不足")
 
-                                            .setPositiveButton("确定",new DialogInterface.OnClickListener() {//添加确定按钮
-
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {//添加确定按钮
 
 
                                                 @Override
@@ -361,7 +352,6 @@ public class ActShopDetailPage extends Activity {
                                                 public void onClick(DialogInterface dialog, int which) {
 
                                                     // TODO Auto-generated method stub
-
 
 
                                                 }
@@ -389,15 +379,13 @@ public class ActShopDetailPage extends Activity {
         });
 
 
-
-
         //定位按钮点击事件
         shop_detail_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActShopDetailPage.this,ActMap.class);
-                intent.putExtra("latitude",latitude);
-                intent.putExtra("longitude",longitude);
+                Intent intent = new Intent(ActShopDetailPage.this, ActMap.class);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("longitude", longitude);
                 startActivity(intent);
 
             }
@@ -410,13 +398,19 @@ public class ActShopDetailPage extends Activity {
 
                     Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + shop_phone));
                     startActivity(intent);
-                }catch (SecurityException e){
+                } catch (SecurityException e) {
                     e.printStackTrace();
                 }
             }
         });
 
     }
+
+
+
+
+
+
 
 
 }
